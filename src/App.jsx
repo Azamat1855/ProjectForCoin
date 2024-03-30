@@ -7,9 +7,14 @@ function App() {
 
   return (
     <>
-    <Navbar/>
-     <SideBar/>
-     <Home/>
+      <header>
+        <Navbar />
+      </header>
+
+      <main className='flex '>
+        <SideBar />
+        <Home />
+      </main>
     </>
   )
 }
