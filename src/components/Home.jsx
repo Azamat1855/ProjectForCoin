@@ -56,13 +56,15 @@ const Home = () => {
       <div className="flex flex-col">
         <div className="flex mb-[20px]">
           <input
-          type="text"
-          className="w-[500px] h-[50px] px-[10px]  outline-none border rounded-l-lg border-gray-300"
-          placeholder="Want to find something?"
-          value={searchQuery}
-          onChange={handleInputChange}
-        />
-        <div className="h-[50px] w-[70px] flex items-center justify-center bg-[#007EF2] rounded-r-lg text-white"><FaMagnifyingGlass /></div>
+            type="text"
+            className="w-[500px] h-[50px] px-[10px]  outline-none border rounded-l-lg border-gray-300"
+            placeholder="Want to find something?"
+            value={searchQuery}
+            onChange={handleInputChange}
+          />
+          <div className="h-[50px] w-[70px] flex items-center justify-center bg-[#007EF2] rounded-r-lg text-white">
+            <FaMagnifyingGlass />
+          </div>
         </div>
         <div>
           <div className="overflow-x-auto">
@@ -175,9 +177,14 @@ const Home = () => {
                     <td>{item.phone}</td>
                     <td>
                       {editingIndex === index ? (
-                        <button onClick={handleSave} className="border border-gray-300 rounded-lg bg-gray-200 px-[9px] pu-[3px]">Save</button>
+                        <button
+                          onClick={handleSave}
+                          className="border border-gray-300 rounded-lg bg-gray-200 px-[9px] pu-[3px]"
+                        >
+                          Save
+                        </button>
                       ) : (
-                        <div >
+                        <div>
                           <button onClick={() => handleEdit(index)}>
                             <img
                               src="public/clarity_note-edit-solid.png"
