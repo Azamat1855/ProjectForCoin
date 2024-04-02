@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { MdEdit } from "react-icons/md";
-import { MdDelete } from "react-icons/md";
+import { FaMagnifyingGlass } from "react-icons/fa6";
 
 const Home = () => {
   const [users, setUsers] = useState([]);
@@ -38,28 +37,38 @@ const Home = () => {
     setSearchQuery(e.target.value);
   };
 
+  const handleDelete = (index) => {
+    const updatedUsers = [...users];
+    updatedUsers.splice(index, 1);
+    setUsers(updatedUsers);
+  };
+
   const filteredUsers = users.filter((user) =>
     Object.values(user).some(
       (value) =>
-        typeof value === "string" && value.toLowerCase().includes(searchQuery.toLowerCase())
+        typeof value === "string" &&
+        value.toLowerCase().includes(searchQuery.toLowerCase())
     )
   );
 
   return (
     <div className="w-[80%] mx-auto pt-[20px]">
       <div className="flex flex-col">
-        <input
+        <div className="flex mb-[20px]">
+          <input
           type="text"
-          className="w-[500px] h-[50px] px-[10px] mb-[20px]"
+          className="w-[500px] h-[50px] px-[10px]  outline-none border rounded-l-lg border-gray-300"
           placeholder="Want to find something?"
           value={searchQuery}
           onChange={handleInputChange}
         />
+        <div className="h-[50px] w-[70px] flex items-center justify-center bg-[#007EF2] rounded-r-lg text-white"><FaMagnifyingGlass /></div>
+        </div>
         <div>
           <div className="overflow-x-auto">
             <table className="table">
               {/* head */}
-              <thead>
+              <thead className="bg-[#EAEAEA] rounded-sm">
                 <tr>
                   <th>
                     <label>
@@ -72,14 +81,15 @@ const Home = () => {
                   <th>Gender</th>
                   <th>Email</th>
                   <th>Phone</th>
+                  <th>Action</th>
                   <th></th>
                 </tr>
               </thead>
               <tbody>
                 {/* row 1 */}
                 {filteredUsers.map((item, index) => (
-                  <tr key={index}>
-                    <th>
+                  <tr key={index} className="">
+                    <th className=" mb-[10px] rounded-xl">
                       <label>
                         <input type="checkbox" className="checkbox" />
                       </label>
@@ -165,17 +175,28 @@ const Home = () => {
                     <td>{item.phone}</td>
                     <td>
                       {editingIndex === index ? (
-                        <button onClick={handleSave}>Save</button>
+                        <button onClick={handleSave} className="border border-gray-300 rounded-lg bg-gray-200 px-[9px] pu-[3px]">Save</button>
                       ) : (
-                        <button onClick={() => handleEdit(index)}>
-                          <MdEdit className="text-[22px]" />
-                        </button>
+                        <div >
+                          <button onClick={() => handleEdit(index)}>
+                            <img
+                              src="public/clarity_note-edit-solid.png"
+                              alt=""
+                              className="w-[30px] h-[30px]"
+                            />
+                          </button>
+                          <button
+                            className="delete"
+                            onClick={() => handleDelete(index)}
+                          >
+                            <img
+                              src="public/ic_baseline-delete-forever.png"
+                              alt=""
+                              className="w-[30px] h-[30px]"
+                            />
+                          </button>
+                        </div>
                       )}
-                    </td>
-                    <td>
-                      <button className="delete">
-                        <MdDelete className="text-[22px] text-red-500" />
-                      </button>
                     </td>
                   </tr>
                 ))}
