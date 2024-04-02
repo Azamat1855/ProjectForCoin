@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { FaMagnifyingGlass } from "react-icons/fa6";
 
 
-const Table = ({ tableName }) => {
+const Table = ({ columnsTable }) => {
     const [users, setUsers] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
 
@@ -52,6 +52,7 @@ const Table = ({ tableName }) => {
         )
     );
 
+
     return (
         <div className="w-[80%] mx-auto pt-[20px]">
             <div className="flex flex-col">
@@ -76,14 +77,11 @@ const Table = ({ tableName }) => {
                                             <input type="checkbox" className="checkbox" />
                                         </label>
                                     </th>
-                                    <th>{tableName}</th>
-                                    <th>Address</th>
-                                    <th>Age</th>
-                                    <th>Gender</th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
-                                    <th>Action</th>
-                                    <th></th>
+                                    {columnsTable ? columnsTable.map((item, id) => (
+                                        <th key={id}>{item.name}</th>
+                                    ))
+                                        :
+                                        <p>Loading</p>}
                                 </tr>
                             </thead>
                             <tbody>
