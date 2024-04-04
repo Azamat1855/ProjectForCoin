@@ -4,25 +4,14 @@ import Table from "./Table/Table";
 const Home = () => {
 
   const [tableitems, settableitems] = useState([
-    {name: "Bekzod krasavchik"},
-    {name: "Bekzod krasavchik"},
-    {name: "Bekzod krasavchik"},
-    {name: "Bekzod krasavchik"},
-    {name: "Bekzod krasavchik"},
-    {name: "Bekzod krasavchik"},
-    {name: "Bekzod krasavchik"},
-    {name: "Bekzod krasavchik"},
-    {name: "Bekzod krasavchik"},
-    {name: "Bekzod krasavchik"},
-    {name: "Bekzod krasavchik"},
-    {name: "Bekzod krasavchik"},
-    {name: "Bekzod krasavchik"},
-    {name: "Bekzod krasavchik"},
-    {name: "Bekzod krasavchik"},
-    {name: "Bekzod krasavchik"},
-    {name: "Bekzod krasavchik"},
-    {name: "Bekzod krasavchik"},
-    {name: "Bekzod krasavchik"},
+    {name: "Employees Name"},
+    {name: "Address"},
+    {name: "Age"},
+    {name: "Gender"},
+    {name: "Email Address"},
+    {name: "Number"},
+    {name: "Action"},
+    
   ])
   return (
     <Table columnsTable={tableitems}/>
