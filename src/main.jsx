@@ -17,16 +17,17 @@ import Reports from "./pages/Reports";
 import Settings from "./pages/Settings";
 import WareHouse from "./pages/WareHouse";
 import Products from "./pages/Products";
+import App from "./App";
 
 
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: <App />,
     children: [
       {
-        path: "/home/dashboard",
+        path: "/dashboard",
         element: <Dashboard />,
       },
       {
