@@ -2,6 +2,7 @@ import './App.css'
 import Home from './components/Home'
 import Navbar from './components/Navbar'
 import SideBar from './components/SideBar'
+import Branches from './pages/Branches'
 
 function App() {
 
@@ -13,7 +14,7 @@ function App() {
 
       <main className='flex '>
         <SideBar />
-        <Home />
+        <Branches />
       </main>
     </>
   )
