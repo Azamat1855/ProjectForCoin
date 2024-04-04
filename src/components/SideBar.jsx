@@ -4,31 +4,31 @@ import Accordion from './Accordion'; // Import the Accordion component
 
 const SideBar = () => {
   const [links, setLinks] = useState([
-    { id: 1, linkname: "Dashboard", href: "/", img: './Vector.png' },
-    { id: 2, linkname: "Task", href: "/", img: './Vector.png' },
-    { id: 3, linkname: "User", href: "/", img: './Vector.png' },
+    { id: 1, linkname: "Dashboard", href: "/dashboard", img: './Vector.png' },
+    { id: 2, linkname: "Branches", href: "/branches", img: './Vector.png' },
+    { id: 3, linkname: "Employes", href: "/employes", img: './Vector.png' },
     {
       id: 4,
       linkname: "Messages",
       dropdown: [
-        { id: 1, linkname: "Inbox", href: "/" },
-        { id: 2, linkname: "Sent", href: "/" },
+        { id: 1, linkname: "Inbox", href: "/inbox" },
+        { id: 2, linkname: "Sent", href: "/sent" },
         {
-          id: 3, linkname: "Daisy", href: "/", dropdown: [ // Added "Daisy" dropdown item with nested dropdown
+          id: 3, linkname: "Daisy", href: "/daisy", dropdown: [ // Added "Daisy" dropdown item with nested dropdown
             { id: 4, linkname: "Submenu 1", href: "/" },
             { id: 5, linkname: "Submenu 2", href: "/" },
           ]
         },
       ]
     },
-    { id: 5, linkname: "Activities", href: "/", img: './Vector.png' },
-    { id: 6, linkname: "Calender", href: "/", img: './Vector.png' },
-    { id: 7, linkname: "Post", href: "/", img: './Vector.png' },
-    { id: 8, linkname: "Tickets", href: "/", img: './Vector.png' },
-    { id: 9, linkname: "Reports", href: "/", img: './Vector.png' },
-    { id: 10, linkname: "Jobs", href: "/", img: './Vector.png' },
-    { id: 11, linkname: "Document", href: "/", img: './Vector.png' },
-    { id: 12, linkname: "Payroll", href: "/", img: './Vector.png' },
+    { id: 5, linkname: "Warehouse", href: "/warehouse", img: './Vector.png' },
+    { id: 6, linkname: "Orders", href: "/orders", img: './Vector.png' },
+    { id: 7, linkname: "Products", href: "/products", img: './Vector.png' },
+    { id: 8, linkname: "Discount", href: "/discount", img: './Vector.png' },
+    { id: 9, linkname: "Category", href: "/category", img: './Vector.png' },
+    { id: 10, linkname: "Reports", href: "/reports", img: './Vector.png' },
+    { id: 11, linkname: "Vacancy", href: "/vacancy", img: './Vector.png' },
+    { id: 12, linkname: "Settings", href: "/settings", img: './Vector.png' },
   ]);
 
   return (
