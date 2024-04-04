@@ -21,7 +21,7 @@ const SideBar = () => {
         },
       ]
     },
-    { id: 5, linkname: "Activities", href: "/", img: './Vector.png' },
+    { id: 5, linkname: "Warehouse", href: "/", img: './Vector.png' },
     { id: 6, linkname: "Calender", href: "/", img: './Vector.png' },
     { id: 7, linkname: "Post", href: "/", img: './Vector.png' },
     { id: 8, linkname: "Tickets", href: "/", img: './Vector.png' },
