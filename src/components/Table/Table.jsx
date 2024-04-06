@@ -11,6 +11,7 @@ const Table = ({ columnsTable }) => {
       .then((json) => {
         setUsers(json.users);
       });
+      console.log(users)
   }, []);
 
   const [editingIndex, setEditingIndex] = useState(null);
@@ -71,19 +72,15 @@ const Table = ({ columnsTable }) => {
             <table className="table">
               {/* head */}
               <thead className="bg-[#EAEAEA] rounded-sm">
-                <tr>
-                  <th>
-                    <label>
-                      <input type="checkbox" className="checkbox" />
-                    </label>
-                  </th>
-                  {columnsTable ? (
-                    columnsTable.map((item, id) => (
-                      <th key={id}>{item.name}</th>
-                    ))
-                  ) : (
-                    <p>Loading</p>
-                  )}
+              <tr>
+                  <th></th>
+                  <th>Name</th>
+                  <th>Address</th>
+                  <th>Age</th>
+                  <th>Gender</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody className=" overflow-x-auto">
@@ -105,12 +102,6 @@ const Table = ({ columnsTable }) => {
                       ) : (
                         <div className="flex items-center gap-3">
                           <div className="avatar">
-                            <div className="mask mask-squircle w-12 h-12">
-                              <img
-                                src={item.image}
-                                alt="Avatar Tailwind CSS Component"
-                              />
-                            </div>
                           </div>
                           <div>
                             <div className="font-bold">
@@ -175,6 +166,7 @@ const Table = ({ columnsTable }) => {
                     </td>
                     <td>{item.phone}</td>
                     <td>
+                      
                       {editingIndex === index ? (
                         <button
                           onClick={handleSave}
@@ -213,8 +205,8 @@ const Table = ({ columnsTable }) => {
                   <th></th>
                   <th>Name</th>
                   <th>Age</th>
-                  <th>Gender</th>
                   <th>Address</th>
+                  <th>Gender</th>
                   <th>Email</th>
                   <th>Phone</th>
                   <th></th>
