@@ -5,8 +5,9 @@ import Branches from './Branches'
 
 const Home = () => {
   return (
-    <>
-      <Branches />
+
+    <> 
+      <Branches/>
     </>
   )
 }
