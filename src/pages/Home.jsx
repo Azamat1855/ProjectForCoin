@@ -7,13 +7,8 @@ import OrderDetails from './OrderDetails'
 
 const Home = () => {
   return (
-<<<<<<< HEAD
     <> 
       <Branches/>
-=======
-    <>
-      <Branches />
->>>>>>> 34f11e47f5b36a9c4671dfdcc27c6833c8a50bff
     </>
   )
 }
