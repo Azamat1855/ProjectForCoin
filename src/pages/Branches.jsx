@@ -226,9 +226,9 @@ const Branches = () => {
 
   return (
     <div>
-      <div className="p-10 overflow-ellipsis relative z-0">
+      <div className="p-10 w-[100%] overflow-ellipsis relative z-0">
         {" "}
-        <div className="flex justify-between">
+        <div className="flex w-[100%] justify-between">
           <p
             className={`${
               isBranchClicked ? "" : "mb-[20px] text-[35px] font-bold"
