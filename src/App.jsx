@@ -1,8 +1,11 @@
 import './App.css'
-import Home from './components/Home'
+import Home from './pages/Home'
 import Navbar from './components/Navbar'
 import SideBar from './components/SideBar'
 import Branches from './pages/Branches'
+import { Route, Routes } from 'react-router-dom'
+import Dashboard from './pages/Dashboard'
+
 
 function App() {
 
@@ -12,9 +15,21 @@ function App() {
         <Navbar />
       </header>
 
-      <main className='flex '>
+      <main className='flex w-full'>
         <SideBar />
-        <Branches />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/branches" element={<Branches />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Routes>
       </main>
     </>
   )
