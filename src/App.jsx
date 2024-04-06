@@ -5,7 +5,7 @@ import SideBar from './components/SideBar'
 import Branches from './pages/Branches'
 import { Route, Routes } from 'react-router-dom'
 import Dashboard from './pages/Dashboard'
-import WareHouse from './pages/WareHouse'
+import Employes from './pages/Employes'
 
 
 function App() {
@@ -17,12 +17,12 @@ function App() {
       </header>
 
       <main className='flex w-full'>
-        <SideBar />
+        <SideBar/>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/branches" element={<Branches />} />
-          <Route path="/warehouse" element={<WareHouse />} />
+          <Route path="/employes" element={<Employes />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />

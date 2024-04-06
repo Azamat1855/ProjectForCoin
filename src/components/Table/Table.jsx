@@ -4,7 +4,7 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 const Table = ({ columnsTable }) => {
   const [users, setUsers] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-
+  const [showAddForm, setShowAddForm] = useState(false);
   useEffect(() => {
     fetch("https://dummyjson.com/users")
       .then((res) => res.json())
@@ -43,6 +43,15 @@ const Table = ({ columnsTable }) => {
     setUsers(updatedUsers);
   };
 
+  const handleAddEmployee = () => {
+    setShowAddForm(!showAddForm);
+  };
+
+  const handleAddFormSubmit = (newEmployee) => {
+    setUsers([...users, newEmployee]);
+    setShowAddForm(false);
+  };
+
   const filteredUsers = users.filter((user) =>
     Object.values(user).some(
       (value) =>
@@ -53,7 +62,7 @@ const Table = ({ columnsTable }) => {
 
   return (
     <div className="w-[80%] mx-auto pt-[20px]">
-      <div className="flex flex-col">
+      <div className="flex flex-col items-center justify-center">
         <div className="flex mb-[20px]">
           <input
             type="text"
@@ -66,28 +75,24 @@ const Table = ({ columnsTable }) => {
             <FaMagnifyingGlass />
           </div>
         </div>
+        <button onClick={handleAddEmployee} className="mb-6 p-2 bg-blue-500 rounded-lg text-white">Add Employee</button>
         <div>
+          {showAddForm && <AddEmployeeForm onSubmit={handleAddFormSubmit} />}
           <div className="overflow-x-auto">
             <table className="table">
-              {/* head */}
               <thead className="bg-[#EAEAEA] rounded-sm">
                 <tr>
-                  <th>
-                    <label>
-                      <input type="checkbox" className="checkbox" />
-                    </label>
-                  </th>
-                  {columnsTable ? (
-                    columnsTable.map((item, id) => (
-                      <th key={id}>{item.name}</th>
-                    ))
-                  ) : (
-                    <p>Loading</p>
-                  )}
+                  <th></th>
+                  <th>Name</th>
+                  <th>Address</th>
+                  <th>Age</th>
+                  <th>Gender</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody className=" overflow-x-auto">
-                {/* row 1 */}
                 {filteredUsers.map((item, index) => (
                   <tr key={index} className="">
                     <th className=" mb-[10px] rounded-xl">
@@ -104,14 +109,7 @@ const Table = ({ columnsTable }) => {
                         />
                       ) : (
                         <div className="flex items-center gap-3">
-                          <div className="avatar">
-                            <div className="mask mask-squircle w-12 h-12">
-                              <img
-                                src={item.image}
-                                alt="Avatar Tailwind CSS Component"
-                              />
-                            </div>
-                          </div>
+                          <div className="avatar"></div>
                           <div>
                             <div className="font-bold">
                               {item.firstName} {item.lastName}
@@ -183,7 +181,7 @@ const Table = ({ columnsTable }) => {
                           Save
                         </button>
                       ) : (
-                        <div>
+                        <div className="flex gap-4">
                           <button onClick={() => handleEdit(index)}>
                             <img
                               src="public/clarity_note-edit-solid.png"
@@ -207,14 +205,13 @@ const Table = ({ columnsTable }) => {
                   </tr>
                 ))}
               </tbody>
-              {/* foot */}
               <tfoot>
                 <tr>
                   <th></th>
                   <th>Name</th>
                   <th>Age</th>
-                  <th>Gender</th>
                   <th>Address</th>
+                  <th>Gender</th>
                   <th>Email</th>
                   <th>Phone</th>
                   <th></th>
@@ -225,6 +222,83 @@ const Table = ({ columnsTable }) => {
         </div>
       </div>
     </div>
+  );
+};
+
+const AddEmployeeForm = ({ onSubmit }) => {
+  const [newEmployee, setNewEmployee] = useState({
+    firstName: "",
+    lastName: "",
+    age: "",
+    gender: "",
+    email: "",
+    phone: "",
+    address: "",
+    company: "",
+  });
+
+  const handleChange = (e, key) => {
+    const { value } = e.target;
+    setNewEmployee((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit(newEmployee);
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="mb-5">
+      <input
+        type="text"
+        placeholder="First Name"
+        value={newEmployee.firstName}
+        onChange={(e) => handleChange(e, "firstName")}
+      />
+      <input
+        type="text"
+        placeholder="Last Name"
+        value={newEmployee.lastName}
+        onChange={(e) => handleChange(e, "lastName")}
+      />
+      <input
+        type="text"
+        placeholder="Age"
+        value={newEmployee.age}
+        onChange={(e) => handleChange(e, "age")}
+      />
+      <input
+        type="text"
+        placeholder="Gender"
+        value={newEmployee.gender}
+        onChange={(e) => handleChange(e, "gender")}
+      />
+      <input
+        type="email"
+        placeholder="Email"
+        value={newEmployee.email}
+        onChange={(e) => handleChange(e, "email")}
+      />
+      <input
+        type="text"
+        placeholder="Phone"
+        value={newEmployee.phone}
+        onChange={(e) => handleChange(e, "phone")}
+      />
+      <input
+        type="text"
+        placeholder="Address"
+        value={newEmployee.address}
+        onChange={(e) => handleChange(e, "address")}
+      />
+      <input
+        type="text"
+        placeholder="Company"
+        value={newEmployee.company}
+        onChange={(e) => handleChange(e, "company")}
+      />
+      <button type="submit" className="px-2 py-1 bg-blue-500 text-white rounded-md">Add</button>
+    </form>
   );
 };
 
