@@ -19,13 +19,13 @@ const AddBranch = () => {
         className="w-[320px] h-[50px] rounded px-[10px] shadow-md shadow-slate-700 outline-none"
       />
       <input
-        type="text"
+        type="time"
         placeholder="Opening time"
         id="openTime"
         className="w-[320px] h-[50px] rounded px-[10px] shadow-md shadow-slate-700 outline-none"
       />
       <input
-        type="text"
+        type="number"
         placeholder="Working hours"
         id="workHours"
         className="w-[320px] h-[50px] rounded px-[10px] shadow-md shadow-slate-700 outline-none"
@@ -226,9 +226,9 @@ const Branches = () => {
 
   return (
     <div>
-      <div className="p-10 overflow-ellipsis relative z-0">
+      <div className="p-10 w-[100%] overflow-ellipsis relative z-0">
         {" "}
-        <div className="flex justify-between">
+        <div className="flex w-[100%] justify-between">
           <p
             className={`${
               isBranchClicked ? "" : "mb-[20px] text-[35px] font-bold"
