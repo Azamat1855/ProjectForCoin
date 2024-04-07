@@ -15,7 +15,7 @@ const Branches = () => {
       });
   }, []);
 
-  const handleChange = (e) => {
+  const Change = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -23,7 +23,7 @@ const Branches = () => {
     });
   };
 
-  const handleSubmit = async (e) => {
+  const Submit = async (e) => {
     e.preventDefault();
     try {
       const response = await fetch("http://localhost:3001/branches", {
@@ -38,7 +38,7 @@ const Branches = () => {
         setBranches([...branches, data]);
         setFormData({name: "", address: "", workTime: "", phone: "", branchManager: "", mainChief: "",
         });
-        setShowForm(false); // Hide form after submission
+        setShowForm(false);
       } else {
         console.error("Failed to create branch");
       }
@@ -47,11 +47,11 @@ const Branches = () => {
     }
   };
 
-  const handleEdit = (id) => {
+  const Edit = (id) => {
     setEditingBranchId(id);
   };
 
-  const handleSave = async (id) => {
+  const Save = async (id) => {
 
     const isFormFilled = formData.name && formData.address && formData.workTime && formData.phone && formData.branchManager && formData.mainChief;
 
@@ -82,7 +82,7 @@ const Branches = () => {
     }
   };
 
-  const handleDelete = async (id) => {
+  const Delete = async (id) => {
     try {
       const response = await fetch(`http://localhost:3001/branches/${id}`, {
         method: "DELETE",
@@ -97,11 +97,11 @@ const Branches = () => {
     }
   };;
 
-  const handleCreateBranchClick = () => {
+  const CreateBranchClick = () => {
     setShowForm((prevShowForm) => !prevShowForm);
   };
 
-  const handleCancel = () => {
+  const Cancel = () => {
 
     setFormData({
       name: "",
@@ -119,76 +119,78 @@ const Branches = () => {
       <div className="w-[100%] py-[20px] glas">
         <div className="flex flex-col w-[75%] mx-auto ">
           <div className="flex justify-between py-[30px]">
-            <p className="font-bold text-[30px]">All Branches</p>
-            <button className="px-[100px] h-[60px] items-center justify-center font-medium text-[18px] bg-blue-500 rounded-lg text-white hover:bg-[#5990fe] shadow-md shadow-slate-400 transition active:scale-90 flex gap-1" onClick={handleCreateBranchClick}>
+            <p className="font-bold text-[36px]">All Branches</p>
+            <button className="px-[100px] h-[60px] items-center justify-center font-medium text-[18px] bg-blue-500 rounded-lg text-white hover:bg-[#5990fe] shadow-md shadow-slate-400 transition active:scale-90 flex gap-1" onClick={CreateBranchClick}>
             <MdAddBox />Create branch
             </button>
           </div>
-          {showForm && ( // Render form only if showForm is true
-            <form onSubmit={handleSubmit} className="mb-8 flex flex-col items-center border rounded-xl bg-slate-600 glass p-[30px] gap-[20px] shadow-lg shadow-slate-600">
-            <div className="flex flex-wrap justify-center gap-[10px]">
-            <input type="text" name="name"value={formData.name}onChange={handleChange} placeholder="Branch Name" className="input shadow-md shadow-slate-600" required/>
-            <input type="text" name="address" value={formData.address} onChange={handleChange} placeholder="Branch Address" className="input shadow-md shadow-slate-600" required/>
-            <input type="text" name="workTime" value={formData.workTime} onChange={handleChange} placeholder="Working Hours" className="input" required/>
-            <input type="text" name="phone" value={formData.phone} onChange={handleChange} placeholder="Phone Number" className="input shadow-md shadow-slate-600" required/>
-            <input type="text" name="branchManager" value={formData.branchManager} onChange={handleChange} placeholder="Branch Manager" className="input shadow-md shadow-slate-600" required/>
-            <input type="text" name="mainChief" value={formData.mainChief} onChange={handleChange} placeholder="Main Chief" className="input shadow-md shadow-slate-600" required/>
+          {showForm && (
+            <form onSubmit={Submit} className="bg-[url('public/6cee589c2f553320ee93e5afced09766.png')] bg-contain bg-no-repeat mb-8 flex justify-end flex-col items-end border rounded-xl bg-slate-400 glass h-[400px] p-[30px] gap-[20px] shadow-md shadow-slate-500">
+           <div className="flex flex-col justif-center items-center gap-[20px] my-auto">
+           <div className="flex flex-wrap justify-center gap-[20px] w-[620px] items-center">
+            <input type="text" name="name"value={formData.name}onChange={Change} placeholder="Branch Name" className="input shadow-md shadow-slate-600 w-[300px]" required/>
+            <input type="text" name="address" value={formData.address} onChange={Change} placeholder="Branch Address" className="input shadow-md shadow-slate-600 w-[300px]" required/>
+            <input type="text" name="workTime" value={formData.workTime} onChange={Change} placeholder="Working Hours" className="input shadow-md shadow-slate-600 w-[300px]" required/>
+            <input type="text" name="phone" value={formData.phone} onChange={Change} placeholder="Phone Number" className="input shadow-md shadow-slate-600 w-[300px]" required/>
+            <input type="text" name="branchManager" value={formData.branchManager} onChange={Change} placeholder="Branch Manager" className="input shadow-md shadow-slate-600 w-[300px]" required/>
+            <input type="text" name="mainChief" value={formData.mainChief} onChange={Change} placeholder="Main Chief" className="input shadow-md shadow-slate-600 w-[300px]" required/>
             </div>
-            <button type="submit" className="w-[150px] h-[40px] bg-blue-500 rounded-lg text-white hover:bg-[#5990fe] transition active:scale-90 shadow-md shadow-slate-600 flex items-center justify-center gap-1">
+            <button type="submit" className="w-[250px] h-[60px] bg-blue-500 rounded-lg text-white hover:bg-[#5990fe] transition active:scale-90 shadow-md shadow-slate-600 flex items-center justify-center gap-1">
             <MdOutlineDone className="text-[20px] font-semibold"/>Submit
             </button>
+           </div>
           </form>
           )}
           <section className="cards flex flex-col gap-[30px]">
             {branches.map((branch) => (
-              <div key={branch.id} className="card bg-[url('src/assets/smashburger_double_classic_hero_195c5015ee.png')] flex flex-col gap-[50px] items-start bg-contain bg-no-repeat bg-right rounded-2xl bg-yellow-100 w-full mx-auto h-[320px] p-[30px]">
-                {editingBranchId === branch.id ? (
-                  <form className="flex flex-wrap gap-[20px]">
-                    <div className="flex flex-col gap-2">
-                      <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Branch Name" className="input" />
-                      <input type="text" name="address" value={formData.address} onChange={handleChange} placeholder="Branch Address" className="input" />
-                      <input type="text" name="workTime" value={formData.workTime} onChange={handleChange} placeholder="Working Hours" className="input" />
-                    </div>
-                    <div className="flex flex-col gap-2">
-                      <input type="text" name="phone" value={formData.phone} onChange={handleChange} placeholder="Phone Number" className="input" />
-                      <input type="text" name="branchManager" value={formData.branchManager} onChange={handleChange} placeholder="Branch Manager" className="input" />
-                      <input type="text" name="mainChief" value={formData.mainChief} onChange={handleChange} placeholder="Main Chief" className="input" />
-                    </div>
-                    <div className="flex flex-col gap-[8px]">
-                    <button className="btn bg-emerald-500 rounded-lg w-[450px] text-white hover:bg-emerald-400 transition active:scale-90 mt-auto flex gap-1 items-center" onClick={() => handleSave(branch.id)}>
-                    <MdSaveAlt className="text-[18px]"/>Save
-                    </button>
-                    <button className="btn bg-red-500 rounded-lg w-[450px] text-white hover:bg-red-400 transition active:scale-90 mt-auto flex gap-1 items-center" onClick={handleCancel}>
-                    <MdOutlineCancel className="text-[18px]"/>Cancel
-                    </button>
-                    </div>
-                  </form>
-                ) : (
-                  <>
-                    <div className="flex flex-col">
-                      <p className="title font-bold text-[29px] border-b-gray-400 border-b">
-                        {branch.name}
-                      </p>
-                      <p>{branch.address}</p>
-                    </div>
-                    <div className="flex gap-[35px] ">
-                      <p className="flex flex-col">Working Hours:{" "}<span className="text-[20px] font-medium">{branch.workTime}</span></p>
-                      <p className="flex flex-col">Telephone:{" "}<span className="text-[20px] font-medium">{branch.phone}</span>
-                      </p>
-                    </div>
+              <div key={branch.id} className="card bg-[url('public/smashburger_double_classic_hero_195c5015ee.png')] flex flex-col gap-[50px] items-start bg-contain bg-no-repeat bg-right rounded-2xl bg-[#ffe4ad] w-full mx-auto h-[320px] p-[30px]">
+              {editingBranchId === branch.id ? (
+                <form className="flex flex-wrap gap-[20px]">
+                  <div className="flex flex-col gap-2">
+                    <input type="text" name="name" value={formData.name} onChange={Change} placeholder="Branch Name" className="input" />
+                    <input type="text" name="address" value={formData.address} onChange={Change} placeholder="Branch Address" className="input" />
+                    <input type="text" name="workTime" value={formData.workTime} onChange={Change} placeholder="Working Hours" className="input" />
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <input type="text" name="phone" value={formData.phone} onChange={Change} placeholder="Phone Number" className="input" />
+                    <input type="text" name="branchManager" value={formData.branchManager} onChange={Change} placeholder="Branch Manager" className="input" />
+                    <input type="text" name="mainChief" value={formData.mainChief} onChange={Change} placeholder="Main Chief" className="input" />
+                  </div>
+                  <div className="flex flex-col gap-[8px]">
+                  <button className="btn bg-emerald-500 rounded-lg w-[450px] text-white hover:bg-emerald-400 transition active:scale-90 mt-auto flex gap-1 items-center" onClick={() => Save(branch.id)}>
+                  <MdSaveAlt className="text-[18px]"/>Save
+                  </button>
+                  <button className="btn bg-red-500 rounded-lg w-[450px] text-white hover:bg-red-400 transition active:scale-90 mt-auto flex gap-1 items-center" onClick={Cancel}>
+                  <MdOutlineCancel className="text-[18px]"/>Cancel
+                  </button>
+                  </div>
+                </form>
+              ) : (
+                <div className="flex flex-col gap-[40px]">
+                  <div className="flex flex-col">
+                    <p className="title font-bold text-[29px] border-b-gray-400 border-b">
+                      {branch.name}
+                    </p>
+                    <p>{branch.address}</p>
+                  </div>
+                  <div className="flex gap-[35px] ">
+                    <p className="flex flex-col">Working Hours:{" "}<span className="text-[20px] font-medium">{branch.workTime}</span></p>
+                    <p className="flex flex-col">Telephone:{" "}<span className="text-[20px] font-medium">{branch.phone}</span>
+                    </p>
+                  </div>
 
-                    <div className="buttons flex gap-[20px]">
-                      <button className="w-[150px] h-[40px] bg-blue-500 rounded-lg text-white hover:bg-[#5990fe] transition active:scale-90 flex items-center justify-center gap-1" onClick={() => handleEdit(branch.id)}>
-                      <MdEdit className="text-[18px]"/> Edit
-                      </button>
+                  <div className="buttons flex gap-[20px]">
+                    <button className="w-[150px] h-[40px] bg-blue-500 rounded-lg text-white hover:bg-[#5990fe] transition active:scale-90 flex items-center justify-center gap-1" onClick={() => Edit(branch.id)}>
+                    <MdEdit className="text-[18px]"/> Edit
+                    </button>
 
-                      <button className="w-[150px] h-[40px] bg-red-500 rounded-lg text-white hover:bg-[#ff6464] transition active:scale-90 flex gap-1 justify-center items-center" onClick={() => handleDelete(branch.id)}>
-                      <MdDeleteForever className="text-[18px]"/>Delete
-                      </button>
-                    </div>
-                  </>
-                )}
-              </div>
+                    <button className="w-[150px] h-[40px] bg-red-500 rounded-lg text-white hover:bg-[#ff6464] transition active:scale-90 flex gap-1 justify-center items-center" onClick={() => Delete(branch.id)}>
+                    <MdDeleteForever className="text-[18px]"/>Delete
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
             ))}
           </section>
         </div>

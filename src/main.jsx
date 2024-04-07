@@ -20,7 +20,6 @@ import Products from "./pages/Products";
 import App from "./App";
 
 
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -69,7 +68,7 @@ const router = createBrowserRouter([
       {
         path: "/warehouse",
         element: <WareHouse />,
-      },
+      }
     ],
   },
 
