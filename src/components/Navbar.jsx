@@ -4,19 +4,19 @@ import React from "react";
 const Navbar = () => {
   return (
     <div>
-      <nav className="container py-[18px] border-b-[#D5D5D5] border-b ">
-        <div className="flex justify-between max-w-[95%] mx-auto">
-        <div className="flex gap-[22px] items-center justify-center">
-          <img src="public/carbon_logo-flickr.png" alt="" />
-          <img src="public/Admin Logo.png" alt="" />
-        </div>
-        <div className="flex items-center gap-[33px]">
-          <img src="public/notifications.png" alt="" />
-          <div className="flex items-center gap-[15px]">
-            <p>Femi John</p>
-            <img src="public/Photo_7.png" alt="" />
+      <nav className=" py-[18px] border-b-[#D5D5D5] border-b ">
+        <div className="flex justify-between max-w-[95%] mx-auto container mx-auto">
+          <div className="flex gap-[22px] items-center justify-center">
+            <img src="public/carbon_logo-flickr.png" alt="" />
+            <img src="public/Admin Logo.png" alt="" />
           </div>
-        </div>
+          <div className="flex items-center gap-[33px]">
+            <img src="public/notifications.png" alt="" />
+            <div className="flex items-center gap-[15px]">
+              <p>Femi John</p>
+              <img src="public/Photo_7.png" alt="" />
+            </div>
+          </div>
         </div>
       </nav>
     </div>
