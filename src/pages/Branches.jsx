@@ -12,6 +12,7 @@ const Branches = () => {
       .then((res) => res.json())
       .then((data) => {
         setBranches(data);
+        console.log(branches)
       });
   }, []);
 
@@ -48,7 +49,14 @@ const Branches = () => {
   };
 
   const Edit = (id) => {
-    setEditingBranchId(id);
+    const branchToEdit = branches.find(branch => branch.id === id);
+    if (branchToEdit) {
+      setFormData({name: branchToEdit.name, address: branchToEdit.address, workTime: branchToEdit.workTime, phone: branchToEdit.phone, branchManager: branchToEdit.branchManager, mainChief: branchToEdit.mainChief,
+      });
+      setEditingBranchId(id);
+    } else {
+      console.error("Branch not found");
+    }
   };
 
   const Save = async (id) => {
@@ -103,13 +111,7 @@ const Branches = () => {
 
   const Cancel = () => {
 
-    setFormData({
-      name: "",
-      address: "",
-      workTime: "",
-      phone: "",
-      branchManager: "",
-      mainChief: "",
+    setFormData({ name: "", address: "", workTime: "", phone: "", branchManager: "", mainChief: "",
     });
     setShowForm(false); 
   };
@@ -143,18 +145,36 @@ const Branches = () => {
           )}
           <section className="cards flex flex-col gap-[30px]">
             {branches.map((branch) => (
-              <div key={branch.id} className="card bg-[url('public/smashburger_double_classic_hero_195c5015ee.png')] flex flex-col gap-[50px] items-start bg-contain bg-no-repeat bg-right rounded-2xl bg-[#ffe4ad] w-full mx-auto h-[320px] p-[30px]">
+              <div key={branch.id} className="card bg-[url('public/smashburger_double_classic_hero_195c5015ee.png')] md:justify-center flex flex-col gap-[50px] items-start bg-contain bg-no-repeat bg-right rounded-2xl bg-[#fce5b8] w-full mx-auto h-[370px] p-[30px]">
               {editingBranchId === branch.id ? (
                 <form className="flex flex-wrap gap-[20px]">
                   <div className="flex flex-col gap-2">
-                    <input type="text" name="name" value={formData.name} onChange={Change} placeholder="Branch Name" className="input" />
-                    <input type="text" name="address" value={formData.address} onChange={Change} placeholder="Branch Address" className="input" />
-                    <input type="text" name="workTime" value={formData.workTime} onChange={Change} placeholder="Working Hours" className="input" />
+                    <div className="flex flex-col">
+                      <label htmlFor="name" className="text-[14px] text-slate-500">Name:</label>
+                      <input type="text" name="name" value={formData.name} onChange={Change} placeholder="Branch Name" className="input" />
+                    </div>
+                    <div className="flex flex-col">
+                      <label htmlFor="" className="text-[14px] text-slate-500">Address:</label>
+                      <input type="text" name="address" value={formData.address} onChange={Change} placeholder="Branch Address" className="input" />  
+                    </div>
+                    <div  className="flex flex-col">
+                      <label htmlFor="" className="text-[14px] text-slate-500">Work Time:</label>
+                      <input type="text" name="workTime" value={formData.workTime} onChange={Change} placeholder="Working Hours" className="input" />
+                    </div>
                   </div>
                   <div className="flex flex-col gap-2">
-                    <input type="text" name="phone" value={formData.phone} onChange={Change} placeholder="Phone Number" className="input" />
-                    <input type="text" name="branchManager" value={formData.branchManager} onChange={Change} placeholder="Branch Manager" className="input" />
-                    <input type="text" name="mainChief" value={formData.mainChief} onChange={Change} placeholder="Main Chief" className="input" />
+                    <div className="flex flex-col">
+                      <label htmlFor="" className="text-[14px] text-slate-500">Phone Number:</label>
+                      <input type="text" name="phone" value={formData.phone} onChange={Change} placeholder="Phone Number" className="input" />
+                    </div>
+                    <div className="flex flex-col">
+                      <label htmlFor="" className="text-[14px] text-slate-500">Branch Manager:</label>
+                      <input type="text" name="branchManager" value={formData.branchManager} onChange={Change} placeholder="Branch Manager" className="input" />
+                    </div>
+                    <div className="flex flex-col">
+                      <label htmlFor="" className="text-[14px] text-slate-500">Main Chief:</label>
+                      <input type="text" name="mainChief" value={formData.mainChief} onChange={Change} placeholder="Main Chief" className="input" />
+                    </div>
                   </div>
                   <div className="flex flex-col gap-[8px]">
                   <button className="btn bg-emerald-500 rounded-lg w-[450px] text-white hover:bg-emerald-400 transition active:scale-90 mt-auto flex gap-1 items-center" onClick={() => Save(branch.id)}>
