@@ -6,6 +6,7 @@ import Branches from './pages/Branches'
 import { Route, Routes } from 'react-router-dom'
 import Dashboard from './pages/Dashboard'
 import Employes from './pages/Employes'
+import WareHouse from './pages/WareHouse'
 
 
 function App() {
@@ -23,7 +24,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/branches" element={<Branches />} />
           <Route path="/employes" element={<Employes />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/warehouse" element={<WareHouse />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />
