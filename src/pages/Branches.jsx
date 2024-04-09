@@ -237,7 +237,7 @@ const Branches = () => {
             {isBranchClicked ? backButton : "All Branches"}
           </p>
           <button
-            className={`px-[20px] py-[10px] bg-[#007EF2] active:scale-90 transition duration-300 hover:bg-[#3099fc] text-white rounded-md mb-[20px] flex items-center gap-10 justify-end ${
+            className={`px-[20px] py-[10px] bg-[#007EF2] active:scale-90 transition duration-300 hover:bg-[#3099fc] text-white rounded-md mb-[20px] flex items-center gap-2 justify-end ${
               isBranchClicked ? "hidden" : ""
             }`}
             onClick={toggleAddBranch}
