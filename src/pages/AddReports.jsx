@@ -1,7 +1,13 @@
+import { data } from 'autoprefixer';
 import React, { useState, useEffect } from "react";
 import { FaMagnifyingGlass } from "react-icons/fa6";
+import Reports from '../components/Table/Reports';
 
-const Table = ({ reports }) => {
+
+ 
+
+
+const AddReports = ({ reports }) => {
 
   return (
     <div className="w-[80%] mx-auto pt-[20px]">
@@ -52,4 +58,4 @@ const Table = ({ reports }) => {
   );
 };
 
-export default Table;
+export default AddReports;

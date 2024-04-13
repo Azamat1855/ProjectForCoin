@@ -13,7 +13,7 @@ import Branches from "./pages/Branches";
 import Discount from "./pages/Discount";
 import Employes from "./pages/Employes";
 import Messages from "./pages/Messages";
-import Reports from "./pages/Reports";
+import Reports from "./pages/AddReports";
 import Settings from "./pages/Settings";
 import WareHouse from "./pages/WareHouse";
 import Products from "./pages/Products";

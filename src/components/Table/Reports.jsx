@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Table from '../components/Table/Table';
-import { data } from 'autoprefixer';
+
+
 
 const Reports = () => {
   const [reports, setReports] = useState([
@@ -15,8 +15,6 @@ const Reports = () => {
       forWho: "admin",
       checked: false,
       industry:"job",
-      
-    
     },
     {
       id: 1,

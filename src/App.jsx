@@ -6,7 +6,7 @@ import Branches from './pages/Branches'
 import { Route, Routes } from 'react-router-dom'
 import Dashboard from './pages/Dashboard'
 import WareHouse from './pages/WareHouse'
-import Reports from './pages/Reports'
+import Reports from './pages/AddReports'
 
 
 function App() {
