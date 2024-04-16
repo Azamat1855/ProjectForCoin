@@ -23,9 +23,9 @@ const Navbar = () => {
 
   return (
     <div>
-      <nav className=" py-[18px] border-b-[#D5D5D5] border-b ">
-        <div className="flex justify-between max-w-[95%] mx-auto container mx-auto">
-          <div className="flex gap-[22px] items-center justify-center">
+      <nav className="container py-4 border-b border-gray-300">
+        <div className="flex justify-between max-w-[95%] mx-auto">
+          <div className="flex items-center">
             <img src="public/carbon_logo-flickr.png" alt="" />
             <img src="public/Admin Logo.png" alt="" />
           </div>
