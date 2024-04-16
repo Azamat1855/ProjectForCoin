@@ -1,9 +1,6 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
@@ -18,8 +15,10 @@ import Settings from "./pages/Settings";
 import WareHouse from "./pages/WareHouse";
 import Products from "./pages/Products";
 import App from "./App";
-
-
+import OrderDetails from "./pages/OrderDetails";
+import ViewDetailsContext, {
+  NumberProvider,
+} from "./context/ViewDetailsContext";
 
 const router = createBrowserRouter([
   {
@@ -53,6 +52,7 @@ const router = createBrowserRouter([
       {
         path: "/orders",
         element: <Orders />,
+        children: [{ path: ":id", element: <OrderDetails /> }],
       },
       {
         path: "/products",
@@ -72,11 +72,12 @@ const router = createBrowserRouter([
       },
     ],
   },
-
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <NumberProvider>
+      <RouterProvider router={router} />
+    </NumberProvider>
   </React.StrictMode>
 );

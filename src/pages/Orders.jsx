@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Categories from "../components/Orders/Categories";
-import Search from "../components/Orders/Search";
+import { OrdersCategories, OrdersSearch } from "../components";
+import NumberContext from "../context/ViewDetailsContext";
 
 const Orders = () => {
+  const { number, setNumber } = useContext(NumberContext);
+  const [selectedCategory, setSelectedCategory] = useState("All"); // Corrected setter function name
   const [users, setUsers] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("All");
 
   useEffect(() => {
     fetch("http://localhost:3007/orders")
@@ -42,11 +43,14 @@ const Orders = () => {
       {users && users.length > 0 ? (
         <div className="overflow-x-auto w-full">
           <h2 className="text-3xl font-semibold p-6">
-            Orders <span className="text-xl text-slate-500">{users.length}</span>
+            Orders{" "}
+            <span className="text-xl text-slate-500">{users.length}</span>
           </h2>
-          <Categories setSelectedCategory={setSelectedCategory} />
-          <Search />
-          <table className="table">
+          {/* <OrdersCategories setSelectedCategory={setSelectedCategory} /> */}
+          <OrdersCategories setSelectedCategory={setSelectedCategory} />{" "}
+          {/* Assuming this is the correct component */}
+          <OrdersSearch />
+          <table className="table overflow-y-auto">
             <thead>
               <tr className="text-[15px] text-center font-bold text-slate-300">
                 <th>
@@ -106,9 +110,13 @@ const Orders = () => {
                   </td>
                   <td className="text-center text-black">{item.orderdate}</td>
                   <td className="text-center">
-                    <Link to={`/orders/order/${item.id}`}>
-                      {" "}
-                      <p className="text-slate-400">View Details</p>
+                    <Link to={`/orders/${item.id}`}>
+                      <p
+                        className="text-slate-400"
+                        onClick={() => setNumber(item.id)}
+                      >
+                        View Details
+                      </p>
                     </Link>
                   </td>
                 </tr>
