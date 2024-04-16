@@ -1,5 +1,5 @@
 import React from "react";
-
+import Settings from "../pages/Settings";
 
 const Navbar = () => {
   return (
@@ -10,7 +10,9 @@ const Navbar = () => {
           <img src="public/carbon_logo-flickr.png" alt="" />
           <img src="public/Admin Logo.png" alt="" />
         </div>
+        
         <div className="flex items-center gap-[33px]">
+        <Settings />
           <img src="public/notifications.png" alt="" />
           <div className="flex items-center gap-[15px]">
             <p>Femi John</p>
