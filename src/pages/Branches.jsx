@@ -1,506 +1,221 @@
 import React, { useState, useEffect } from "react";
-import { FaArrowLeft } from "react-icons/fa";
-
-const AddBranch = () => {
-
-  
-  return (
-    <div className="bg-slate-700 shadow-lg glass shadow-slate-600 rounded w-[500px] flex flex-col h-[500px] gap-[20px] items-center justify-center">
-      <input
-        type="text"
-        placeholder="Branch Name"
-        id="name"
-        className="w-[320px] h-[50px] rounded px-[10px] shadow-md shadow-slate-700 outline-none"
-      />
-      <input
-        type="text"
-        placeholder="Branch Address"
-        id="address"
-        className="w-[320px] h-[50px] rounded px-[10px] shadow-md shadow-slate-700 outline-none"
-      />
-      <input
-        type="time"
-        placeholder="Opening time"
-        id="openTime"
-        className="w-[320px] h-[50px] rounded px-[10px] shadow-md shadow-slate-700 outline-none"
-      />
-      <input
-        type="number"
-        placeholder="Working hours"
-        id="workHours"
-        className="w-[320px] h-[50px] rounded px-[10px] shadow-md shadow-slate-700 outline-none"
-      />
-      <input
-        type="text"
-        placeholder="Branch manager"
-        id="Manager"
-        className="w-[320px] h-[50px] rounded px-[10px] shadow-md shadow-slate-700 outline-none"
-      />
-      <input
-        type="text"
-        placeholder="Main Chief"
-        id="Chief"
-        className="w-[320px] h-[50px] rounded px-[10px] shadow-md shadow-slate-700 outline-none"
-      />
-      <input
-        type="text"
-        placeholder="PhoneNUmber"
-        id="phone"
-        className="w-[320px] h-[50px] rounded px-[10px] shadow-md shadow-slate-700 outline-none"
-      />
-    </div>
-  );
-};
+import { MdEdit, MdDeleteForever, MdSaveAlt, MdOutlineCancel, MdAddBox, MdOutlineDone } from "react-icons/md";
 
 const Branches = () => {
   const [branches, setBranches] = useState([]);
-  const [selectedBranchId, setSelectedBranchId] = useState(null);
-  const [isBranchClicked, setIsBranchClicked] = useState(false);
-  const [isAddBranchClicked, setIsAddBranchClicked] = useState(false);
+  const [formData, setFormData] = useState({ name: "", address: "", workTime: "", phone: "", branchManager: "", mainChief: "",});
   const [editingBranchId, setEditingBranchId] = useState(null);
-  const [isEditing, setIsEditing] = useState(null);
+  const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
     fetch("http://localhost:3001/branches")
       .then((res) => res.json())
       .then((data) => {
         setBranches(data);
-        console.log(data);
-      })
-      .catch((error) => console.error("Error fetching branches:", error));
+        console.log(branches)
+      });
   }, []);
 
-  const clickedButton = (id, name) => {
-    setIsBranchClicked(true);
-    setSelectedBranchId(id);
-    setClickedBranchName(name);
+  const Change = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
   };
 
-  const resetButton = () => {
-    setIsBranchClicked(false);
-    setSelectedBranchId(null);
-    setClickedBranchName(null);
+  const Submit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("http://localhost:3001/branches", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setBranches([...branches, data]);
+        setFormData({name: "", address: "", workTime: "", phone: "", branchManager: "", mainChief: "",
+        });
+        setShowForm(false);
+      } else {
+        console.error("Failed to create branch");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
-  const toggleAddBranch = () => {
-    setIsAddBranchClicked(!isAddBranchClicked);
-
-    setIsBranchClicked(false);
+  const Edit = (id) => {
+    const branchToEdit = branches.find(branch => branch.id === id);
+    if (branchToEdit) {
+      setFormData({name: branchToEdit.name, address: branchToEdit.address, workTime: branchToEdit.workTime, phone: branchToEdit.phone, branchManager: branchToEdit.branchManager, mainChief: branchToEdit.mainChief,
+      });
+      setEditingBranchId(id);
+    } else {
+      console.error("Branch not found");
+    }
   };
 
-  const backButton = (
-    <button
-      className="px-[20px] py-[10px] bg-[#007EF2] active:scale-90 transition duration-300 hover:bg-[#3099fc] text-white rounded-md mb-[20px] flex items-center gap-2 justify-end"
-      onClick={resetButton}
-    >
-      <FaArrowLeft />
-      Back to All Branches
-    </button>
-  );
+  const Save = async (id) => {
 
-  const [isCommitting, setIsCommitting] = useState(false);
+    const isFormFilled = formData.name && formData.address && formData.workTime && formData.phone && formData.branchManager && formData.mainChief;
 
-  const commitBranch = () => {
-    console.log("Committing branch...");
-
-    if (isCommitting) {
-      console.log("Commit already in progress, returning...");
+    if (!isFormFilled) {
+      alert("Please fill in all fields");
       return;
     }
 
-    const name = document.getElementById("name").value;
-    const address = document.getElementById("address").value;
-    const openTime = document.getElementById("openTime").value;
-    const workHours = document.getElementById("workHours").value;
-    const manager = document.getElementById("Manager").value;
-    const chief = document.getElementById("Chief").value;
-    const phone = document.getElementById("phone").value;
-
-    if (
-      !name ||
-      !address ||
-      !openTime ||
-      !workHours ||
-      !manager ||
-      !chief ||
-      !phone
-    ) {
-      alert("Please fill in all inputs");
-      return;
+    try {
+      const response = await fetch(`http://localhost:3001/branches/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      if (response.ok) {
+        const updatedBranches = branches.map((branch) =>
+          branch.id === id ? { ...branch, ...formData } : branch
+        );
+        setBranches(updatedBranches);
+        setEditingBranchId(null);
+      } else {
+        console.error("Failed to save changes");
+      }
+    } catch (error) {
+      console.error("Error:", error);
     }
-
-    setIsCommitting(true);
-
-    const newBranch = {
-      id: branches.length + 1,
-      name,
-      address,
-      whenOpened: openTime,
-      workTime: workHours,
-      branchManager: manager,
-      mainChief: chief,
-      phone,
-    };
-
-    setBranches((prevBranches) => [...prevBranches, newBranch]);
-
-    setIsAddBranchClicked(false);
-
-    setIsCommitting(false);
   };
 
-  const handleEdit = (e, id) => {
-    e.stopPropagation();
-    setIsBranchClicked(false);
-    setEditingBranchId(id);
-    setIsEditing(id);
-  };
-
-  const saveEditedBranch = (id) => {
-    const editedBranchIndex = branches.findIndex((branch) => branch.id === id);
-    const editedBranch = {
-      ...branches[editedBranchIndex],
-      name: document.getElementById(`name-${id}`).value,
-      address: document.getElementById(`address-${id}`).value,
-      whenOpened: document.getElementById(`openTime-${id}`).value,
-      workTime: document.getElementById(`workHours-${id}`).value,
-      branchManager: document.getElementById(`Manager-${id}`).value,
-      mainChief: document.getElementById(`Chief-${id}`).value,
-      phone: document.getElementById(`phone-${id}`).value,
-    };
-
-    const updatedBranches = [...branches];
-    updatedBranches[editedBranchIndex] = editedBranch;
-    setBranches(updatedBranches);
-
-    setEditingBranchId(null);
-    setIsEditing(null);
-  };
-
-  const handleSave = (id) => {
-    const name = document.getElementById(`name-${id}`).value;
-    const address = document.getElementById(`address-${id}`).value;
-    const openTime = document.getElementById(`openTime-${id}`).value;
-    const workHours = document.getElementById(`workHours-${id}`).value;
-    const manager = document.getElementById(`Manager-${id}`).value;
-    const chief = document.getElementById(`Chief-${id}`).value;
-    const phone = document.getElementById(`phone-${id}`).value;
-
-    const branchIndex = branches.findIndex((branch) => branch.id === id);
-
-    const updatedBranches = [...branches];
-    updatedBranches[branchIndex] = {
-      ...updatedBranches[branchIndex],
-      name,
-      address,
-      whenOpened: openTime,
-      workTime: workHours,
-      branchManager: manager,
-      mainChief: chief,
-      phone,
-    };
-
-    setBranches(updatedBranches);
-
-    // Reset editing state
-    setEditingBranchId(null);
-    setIsEditing(null);
-  };
-
-  const handleDelete = (e, id) => {
-    e.stopPropagation();
-
-    const updatedBranches = branches.filter((branch) => branch.id !== id);
-    setBranches(updatedBranches);
-
-    const branchDiv = document.getElementById(`branch-${id}`);
-    if (branchDiv) {
-      branchDiv.remove();
+  const Delete = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:3001/branches/${id}`, {
+        method: "DELETE",
+      });
+      if (response.ok) {
+        setBranches(branches.filter((branch) => branch.id !== id));
+      } else {
+        console.error("Failed to delete branch");
+      }
+    } catch (error) {
+      console.error("Error:", error);
     }
+  };;
 
-    const newBranchDiv = document.getElementById(`branch-${id}`);
-    if (newBranchDiv) {
-      newBranchDiv.remove();
-    }
+  const CreateBranchClick = () => {
+    setShowForm((prevShowForm) => !prevShowForm);
+  };
+
+  const Cancel = () => {
+
+    setFormData({ name: "", address: "", workTime: "", phone: "", branchManager: "", mainChief: "",
+    });
+    setShowForm(false); 
   };
 
   return (
-    <div>
-      <div className="p-10 w-[100%] overflow-ellipsis relative z-0">
-        {" "}
-        <div className="flex w-[100%] justify-between">
-          <p
-            className={`${
-              isBranchClicked ? "" : "mb-[20px] text-[35px] font-bold"
-            }`}
-          >
-            {isBranchClicked ? backButton : "All Branches"}
-          </p>
-          <button
-            className={`px-[20px] py-[10px] bg-[#007EF2] active:scale-90 transition duration-300 hover:bg-[#3099fc] text-white rounded-md mb-[20px] flex items-center gap-2 justify-end ${
-              isBranchClicked ? "hidden" : ""
-            }`}
-            onClick={toggleAddBranch}
-          >
-            Create branch
-          </button>
-        </div>
-        {isAddBranchClicked && (
-          <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
-            {" "}
-            <div className="bg-white p-8 rounded-lg">
-              <AddBranch />
-              <div className="flex justify-between">
-                <button
-                  className="px-4 py-2 bg-blue-500 text-white rounded-md mt-4 hover:bg-[#5197ff] transition duration-300 active:scale-90"
-                  onClick={toggleAddBranch}
-                >
-                  Close
-                </button>
-                <button
-                  className="px-4 py-2 bg-blue-500 text-white rounded-md mt-4 hover:bg-[#5197ff] transition duration-300 active:scale-90"
-                  onClick={commitBranch}
-                >
-                  Commit
-                </button>
-              </div>
-            </div>
+    <>
+      <div className="w-[100%] py-[20px] glas">
+        <div className="flex flex-col w-[75%] mx-auto ">
+          <div className="flex justify-between py-[30px]">
+            <p className="font-bold text-[36px]">All Branches</p>
+            <button className="px-[100px] h-[60px] items-center justify-center font-medium text-[18px] bg-blue-500 rounded-lg text-white hover:bg-[#5990fe] shadow-md shadow-slate-400 transition active:scale-90 flex gap-1" onClick={CreateBranchClick}>
+            <MdAddBox />Create branch
+            </button>
           </div>
-        )}
-        {branches.map((branch) => (
-          <div
-            key={branch.id}
-            className={`branch ${
-              editingBranchId === branch.id ? "editing" : ""
-            }`}
-          >
-            {editingBranchId === branch.id ? (
-              <div>
-                <div
-                  key={branch.id}
-                  className={`branch w-[600px] h-[230px] rounded-xl cursor-pointer shadow-md hover:shadow-lg text-black hover:shadow-slate-300 shadow-gray-300 glass px-5 mb-5 active:scale-90 transition duration-300 ${
-                    isBranchClicked ? "hidden" : ""
-                  }`}
-                  onClick={() => clickedButton(branch.id, branch.name)}
-                >
-                  <div className="flex justify-between border-b py-5">
+          {showForm && (
+            <form onSubmit={Submit} className="bg-[url('public/6cee589c2f553320ee93e5afced09766.png')] bg-contain bg-no-repeat mb-8 flex justify-end flex-col items-end border rounded-xl bg-slate-400 glass h-[400px] p-[30px] gap-[20px] shadow-md shadow-slate-500">
+           <div className="flex flex-col justif-center items-center gap-[20px] my-auto">
+           <div className="flex flex-wrap justify-center gap-[20px] w-[620px] items-center">
+            <input type="text" name="name"value={formData.name}onChange={Change} placeholder="Branch Name" className="input shadow-md shadow-slate-600 w-[300px]" required/>
+            <input type="text" name="address" value={formData.address} onChange={Change} placeholder="Branch Address" className="input shadow-md shadow-slate-600 w-[300px]" required/>
+            <input type="text" name="workTime" value={formData.workTime} onChange={Change} placeholder="Working Hours" className="input shadow-md shadow-slate-600 w-[300px]" required/>
+            <input type="text" name="phone" value={formData.phone} onChange={Change} placeholder="Phone Number" className="input shadow-md shadow-slate-600 w-[300px]" required/>
+            <input type="text" name="branchManager" value={formData.branchManager} onChange={Change} placeholder="Branch Manager" className="input shadow-md shadow-slate-600 w-[300px]" required/>
+            <input type="text" name="mainChief" value={formData.mainChief} onChange={Change} placeholder="Main Chief" className="input shadow-md shadow-slate-600 w-[300px]" required/>
+            </div>
+            <button type="submit" className="w-[250px] h-[60px] bg-blue-500 rounded-lg text-white hover:bg-[#5990fe] transition active:scale-90 shadow-md shadow-slate-600 flex items-center justify-center gap-1">
+            <MdOutlineDone className="text-[20px] font-semibold"/>Submit
+            </button>
+           </div>
+          </form>
+          )}
+          <section className="cards flex flex-col gap-[30px]">
+            {branches.map((branch) => (
+              <div key={branch.id} className="card bg-[url('public/smashburger_double_classic_hero_195c5015ee.png')] md:justify-center flex flex-col gap-[50px] items-start bg-contain bg-no-repeat bg-right rounded-2xl bg-[#fce5b8] w-full mx-auto h-[370px] p-[30px]">
+              {editingBranchId === branch.id ? (
+                <form className="flex flex-wrap gap-[20px]">
+                  <div className="flex flex-col gap-2">
                     <div className="flex flex-col">
-                      <h4 className="text-[21px] font-bold">
-                        <input
-                          type="text"
-                          className="border border-gray-300 px-1 rounded outline-none"
-                          id={`name-${branch.id}`}
-                          defaultValue={branch.name}
-                          onClick={(e) => {
-                            if (editingBranchId) {
-                              e.stopPropagation();
-                            }
-                          }}
-                        />
-                      </h4>
-                      <p>
-                        <input
-                          type="text"
-                          className="border border-gray-300 px-1 rounded outline-none"
-                          id={`address-${branch.id}`}
-                          defaultValue={branch.address}
-                          onClick={(e) => {
-                            if (editingBranchId) {
-                              e.stopPropagation();
-                            }
-                          }}
-                        />
-                      </p>
+                      <label htmlFor="name" className="text-[14px] text-slate-500">Name:</label>
+                      <input type="text" name="name" value={formData.name} onChange={Change} placeholder="Branch Name" className="input" />
                     </div>
-                    <div>
-                      <p className="text-emerald-600">
-                        <input
-                          type="text"
-                          className="border border-gray-300 px-1 rounded outline-none text-end"
-                          id={`openTime-${branch.id}`}
-                          defaultValue={branch.whenOpened}
-                          onClick={(e) => {
-                            if (editingBranchId) {
-                              e.stopPropagation();
-                            }
-                          }}
-                        />
-                      </p>
+                    <div className="flex flex-col">
+                      <label htmlFor="" className="text-[14px] text-slate-500">Address:</label>
+                      <input type="text" name="address" value={formData.address} onChange={Change} placeholder="Branch Address" className="input" />  
+                    </div>
+                    <div  className="flex flex-col">
+                      <label htmlFor="" className="text-[14px] text-slate-500">Work Time:</label>
+                      <input type="text" name="workTime" value={formData.workTime} onChange={Change} placeholder="Working Hours" className="input" />
                     </div>
                   </div>
-                  <div className="py-3 flex justify-between">
-                    <div className="flex flex-col items-start">
-                      <p className="text-gray-500">Working time:</p>
-                      <p className="text-[17px]">
-                        Mon-Sun:{" "}
-                        <span>
-                          <input
-                            type="text"
-                            className="border border-gray-300 px-1 rounded outline-none"
-                            id={`workHours-${branch.id}`}
-                            defaultValue={branch.workTime}
-                            onClick={(e) => {
-                              if (editingBranchId) {
-                                e.stopPropagation();
-                              }
-                            }}
-                          />
-                        </span>
-                      </p>
+                  <div className="flex flex-col gap-2">
+                    <div className="flex flex-col">
+                      <label htmlFor="" className="text-[14px] text-slate-500">Phone Number:</label>
+                      <input type="text" name="phone" value={formData.phone} onChange={Change} placeholder="Phone Number" className="input" />
                     </div>
-                    <div className="flex flex-col items-end">
-                      <p className="text-gray-500">Telephone:</p>
-                      <p className="text-[17px]">
-                        <input
-                          type="text"
-                          className="border border-gray-300 px-1 rounded outline-none text-end"
-                          id={`phone-${branch.id}`}
-                          defaultValue={branch.phone}
-                          onClick={(e) => {
-                            if (editingBranchId) {
-                              e.stopPropagation();
-                            }
-                          }}
-                        />
-                      </p>
+                    <div className="flex flex-col">
+                      <label htmlFor="" className="text-[14px] text-slate-500">Branch Manager:</label>
+                      <input type="text" name="branchManager" value={formData.branchManager} onChange={Change} placeholder="Branch Manager" className="input" />
                     </div>
+                    <div className="flex flex-col">
+                      <label htmlFor="" className="text-[14px] text-slate-500">Main Chief:</label>
+                      <input type="text" name="mainChief" value={formData.mainChief} onChange={Change} placeholder="Main Chief" className="input" />
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-[8px]">
+                  <button className="btn bg-emerald-500 rounded-lg w-[450px] text-white hover:bg-emerald-400 transition active:scale-90 mt-auto flex gap-1 items-center" onClick={() => Save(branch.id)}>
+                  <MdSaveAlt className="text-[18px]"/>Save
+                  </button>
+                  <button className="btn bg-red-500 rounded-lg w-[450px] text-white hover:bg-red-400 transition active:scale-90 mt-auto flex gap-1 items-center" onClick={Cancel}>
+                  <MdOutlineCancel className="text-[18px]"/>Cancel
+                  </button>
+                  </div>
+                </form>
+              ) : (
+                <div className="flex flex-col gap-[40px]">
+                  <div className="flex flex-col">
+                    <p className="title font-bold text-[29px] border-b-gray-400 border-b">
+                      {branch.name}
+                    </p>
+                    <p>{branch.address}</p>
+                  </div>
+                  <div className="flex gap-[35px] ">
+                    <p className="flex flex-col">Working Hours:{" "}<span className="text-[20px] font-medium">{branch.workTime}</span></p>
+                    <p className="flex flex-col">Telephone:{" "}<span className="text-[20px] font-medium">{branch.phone}</span>
+                    </p>
                   </div>
 
-                  <div className="flex justify-end pt-2 gap-[8px]">
-                    {isEditing === branch.id ? (
-                      <button
-                        className="px-3 py-1 bg-green-500 text-white rounded-md"
-                        onClick={(e, id) => {
-                          handleEdit(e, id);
-                          handleSave(branch.id);
-                          saveEditedBranch(branch.id);
-                          if (editingBranchId) {
-                            e.stopPropagation();
-                          }
-                        }}
-                      >
-                        Save
-                      </button>
-                    ) : (
-                      <button
-                        className="px-3 py-1 bg-blue-500 text-white rounded-md"
-                        onClick={() => handleEdit(branch.id)}
-                      >
-                        Edit
-                      </button>
-                    )}
-                    <button
-                      className="px-3 py-1 bg-red-500 text-white rounded-md z-auto hover:bg-[#fe6767] active:scale-90 transition "
-                      onClick={(e) => handleDelete(e, branch.id)}
-                    >
-                      Delete
+                  <div className="buttons flex gap-[20px]">
+                    <button className="w-[150px] h-[40px] bg-blue-500 rounded-lg text-white hover:bg-[#5990fe] transition active:scale-90 flex items-center justify-center gap-1" onClick={() => Edit(branch.id)}>
+                    <MdEdit className="text-[18px]"/> Edit
+                    </button>
+
+                    <button className="w-[150px] h-[40px] bg-red-500 rounded-lg text-white hover:bg-[#ff6464] transition active:scale-90 flex gap-1 justify-center items-center" onClick={() => Delete(branch.id)}>
+                    <MdDeleteForever className="text-[18px]"/>Delete
                     </button>
                   </div>
                 </div>
-              </div>
-            ) : (
-              <div
-                key={branch.id}
-                className={`branch w-[600px] h-[230px] rounded-xl cursor-pointer shadow-md hover:shadow-lg text-black hover:shadow-slate-300 shadow-gray-300 glass px-5 mb-5 active:scale-90 transition duration-300 ${
-                  isBranchClicked ? "hidden" : ""
-                }`}
-                onClick={() => clickedButton(branch.id, branch.name)}
-              >
-                <div className="flex justify-between border-b py-5">
-                  <div className="flex flex-col">
-                    <h4 className="text-[21px] font-bold">{branch.name}</h4>
-                    <p>{branch.address}</p>
-                  </div>
-                  <div>
-                    <p className="text-emerald-600">{branch.whenOpened}</p>
-                  </div>
-                </div>
-                <div className="py-3 flex justify-between">
-                  <div className="flex flex-col items-start">
-                    <p className="text-gray-500">Working time:</p>
-                    <p className="text-[17px]">
-                      Mon-Sun: <span>{branch.workTime}</span>
-                    </p>
-                  </div>
-                  <div className="flex flex-col items-end">
-                    <p className="text-gray-500">Telephone:</p>
-                    <p className="text-[17px]">{branch.phone}</p>
-                  </div>
-                </div>
-                <div className="flex justify-end pt-2">
-                  <button
-                    className="px-3 py-1 bg-blue-500 text-white rounded-md mr-2"
-                    onClick={(e) => handleEdit(e, branch.id)}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className="px-3 py-1 bg-red-500 text-white rounded-md z-auto hover:bg-[#fe6767] active:scale-90 transition "
-                    onClick={(e) => handleDelete(e, branch.id)}
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-      {isBranchClicked && (
-        <div className="mx-10">
-          <p className="text-[27px] font-bold pb-[20px]">
-            {branches.find((branch) => branch.id === selectedBranchId).name}
-          </p>
-
-          <div className="p-10 shadow-lg rounded-xl shadow-slate-300 w-[800px] h-[400px] flex justify-between">
-            <div className="border w-[300px] h-[300px] rounded-md my-auto"></div>
-            <div className="text-center mx-auto leading-7">
-              <p className="text-[18px] font-medium">
-                {
-                  branches.find((branch) => branch.id === selectedBranchId)
-                    .address
-                }
-              </p>
-              <p>
-                When Opened:{" "}
-                {
-                  branches.find((branch) => branch.id === selectedBranchId)
-                    .whenOpened
-                }
-              </p>
-              <p>
-                Working Time:{" "}
-                {
-                  branches.find((branch) => branch.id === selectedBranchId)
-                    .workTime
-                }
-              </p>
-              <p>
-                Telephone:{" "}
-                {
-                  branches.find((branch) => branch.id === selectedBranchId)
-                    .phone
-                }
-              </p>
-              <p>
-                Branch manager:{" "}
-                {
-                  branches.find((branch) => branch.id === selectedBranchId)
-                    .branchManager
-                }{" "}
-              </p>
-              <p>
-                Main Chief:{" "}
-                {
-                  branches.find((branch) => branch.id === selectedBranchId)
-                    .mainChief
-                }{" "}
-              </p>
+              )}
             </div>
-          </div>
+            ))}
+          </section>
         </div>
-      )}
-    </div>
+      </div>
+    </>
   );
 };
 

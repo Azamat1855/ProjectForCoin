@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import TableReports from '../components/Table/TableReports';
 
 
 
@@ -14,7 +15,7 @@ const Reports = () => {
       timeSubmit: "14:46",
       forWho: "admin",
       checked: false,
-      industry:"job",
+      industry: "job",
     },
     {
       id: 1,
@@ -26,8 +27,8 @@ const Reports = () => {
       timeSubmit: "13:40",
       forWho: "secretary",
       checked: false,
-      industry:"job",
-      
+      industry: "job",
+
     },
     {
       id: 2,
@@ -39,8 +40,8 @@ const Reports = () => {
       timeSubmit: "15:25",
       forWho: "admin",
       checked: false,
-      industry:"job",
-      
+      industry: "job",
+
     },
     {
       id: 3,
@@ -52,8 +53,8 @@ const Reports = () => {
       timeSubmit: "12:43",
       forWho: "secretary",
       checked: false,
-      industry:"job",
-      
+      industry: "job",
+
     },
     {
       id: 4,
@@ -65,8 +66,8 @@ const Reports = () => {
       timeSubmit: "11:50",
       forWho: "admin",
       checked: false,
-      industry:"job",
-      
+      industry: "job",
+
     },
     {
       id: 5,
@@ -78,8 +79,8 @@ const Reports = () => {
       timeSubmit: "15:46",
       forWho: "secratary",
       checked: false,
-      industry:"job",
-      
+      industry: "job",
+
     },
     {
       id: 6,
@@ -91,8 +92,8 @@ const Reports = () => {
       timeSubmit: "16:13",
       forWho: "admin",
       checked: false,
-      industry:"job",
-      
+      industry: "job",
+
     },
     {
       id: 7,
@@ -104,20 +105,20 @@ const Reports = () => {
       timeSubmit: "17:17",
       forWho: "secratary",
       checked: false,
-      industry:"job",
-      
+      industry: "job",
+
     },
   ]);
 
   return (
-    <div>
-      <div className=''>
-        <p className='py-4 text-3xl'>Reports</p>
+    <div className='w-full px-10 py-5'>
+      <div className='flex justify-between items-center mb-5'>
+        <p className='py-4 text-3xl justify-center items-center  '>Reports</p>
         <div>
-          <button className='btn btn-warning'>Delete all</button>
+          <button className='btn btn-warning justify-center w-50 '>Delete all</button>
         </div>
-        <Table reports={reports} /> 
       </div>
+      <TableReports />
     </div>
   );
 }

@@ -13,12 +13,11 @@ import Branches from "./pages/Branches";
 import Discount from "./pages/Discount";
 import Employes from "./pages/Employes";
 import Messages from "./pages/Messages";
-import Reports from "./pages/AddReports";
+import Reports from "./pages/Reports";
 import Settings from "./pages/Settings";
 import WareHouse from "./pages/WareHouse";
 import Products from "./pages/Products";
 import App from "./App";
-
 
 
 const router = createBrowserRouter([
@@ -69,7 +68,7 @@ const router = createBrowserRouter([
       {
         path: "/warehouse",
         element: <WareHouse />,
-      },
+      }
     ],
   },
 

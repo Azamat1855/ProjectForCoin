@@ -1,9 +1,11 @@
 import React from 'react'
+import TableReports from '../components/Table/TableReports'
+
 
 const Employes = () => {
   return (
-    <div>
-            employes
+    <div className='flex w-full p-10'>
+      <TableReports />
     </div>
   )
 }
