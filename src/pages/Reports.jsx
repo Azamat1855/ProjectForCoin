@@ -115,7 +115,7 @@ const Reports = () => {
       <div className='flex justify-between items-center mb-5'>
         <p className='py-4 text-3xl justify-center items-center  '>Reports</p>
         <div>
-          <button className='btn btn-warning justify-center w-50 '>Delete all</button>
+          <button className='btn btn-info justify-center w-50 '>Delete all</button>
         </div>
       </div>
       <TableReports />

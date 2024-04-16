@@ -6,7 +6,6 @@ const TableReports = ({ items }) => {
     return (
         <div className="overflow-x-auto w-full border rounded-lg h-full">
             <table className="table">
-                {/* head */}
                 <thead>
                     <tr>
                         <th>

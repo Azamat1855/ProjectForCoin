@@ -1,7 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 
+const Notification = ({ message }) => {
+  return <div className="notification">{message}</div>;
+};
 
 const Navbar = () => {
+  const [notifications, setNotifications] = useState([]);
+  const [showNotifications, setShowNotifications] = useState(false);
+
+  const addNotification = (message) => {
+    const newNotification = { id: Date.now(), message: message };
+    setNotifications([...notifications, newNotification]);
+  };
+
+  const clearNotifications = () => {
+    setNotifications([]);
+  };
+
+  const toggleNotifications = () => {
+    setShowNotifications(!showNotifications);
+  };
+
   return (
     <div>
       <nav className=" py-[18px] border-b-[#D5D5D5] border-b ">
@@ -19,6 +38,21 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
+      {showNotifications && (
+        <div className="absolute top-16 right-4 w-64 bg-white border border-gray-300 rounded shadow">
+          <div className="p-4">
+            {notifications.map((notification) => (
+              <Notification
+                key={notification.id}
+                message={notification.message}
+              />
+            ))}
+          </div>
+          <button className="w-full py-2 bg-blue-500 text-white font-semibold rounded-b hover:bg-blue-600" onClick={clearNotifications}>
+            Clear Notifications
+          </button>
+        </div>
+      )}
     </div>
   );
 };
