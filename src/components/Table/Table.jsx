@@ -61,9 +61,10 @@ const Table = ({ columnsTable }) => {
   );
 
   return (
-    <div className="w-[80%] mx-auto pt-[20px]">
+    <div className="w-[80%] mx-auto pt-[20px] ">
+      <h1 className="text-5xl font-semibold text-center mb-10">EMPLOYES</h1>
       <div className="flex flex-col items-center justify-center">
-        <div className="flex mb-[20px]">
+        <div className="flex justify-center">
           <input
             type="text"
             className="w-[500px] h-[50px] px-[10px]  outline-none border rounded-l-lg border-gray-300"
@@ -71,11 +72,16 @@ const Table = ({ columnsTable }) => {
             value={searchQuery}
             onChange={handleInputChange}
           />
-          <div className="h-[50px] w-[70px] flex items-center justify-center bg-[#007EF2] rounded-r-lg text-white">
+          <div className="h-[50px] w-[70px] flex items-center justify-center bg-[#007EF2] rounded-r-lg text-white mr-5">
             <FaMagnifyingGlass />
           </div>
+          <div className="">
+          <button
+          onClick={handleAddEmployee}
+          className="mb-6 p-3 bg-blue-500 rounded-lg text-white">Add Employee
+          </button>
+          </div>
         </div>
-        <button onClick={handleAddEmployee} className="mb-6 p-2 bg-blue-500 rounded-lg text-white">Add Employee</button>
         <div>
           {showAddForm && <AddEmployeeForm onSubmit={handleAddFormSubmit} />}
           <div className="overflow-x-auto">
@@ -297,7 +303,12 @@ const AddEmployeeForm = ({ onSubmit }) => {
         value={newEmployee.company}
         onChange={(e) => handleChange(e, "company")}
       />
-      <button type="submit" className="px-2 py-1 bg-blue-500 text-white rounded-md">Add</button>
+      <button
+        type="submit"
+        className="px-4 py-3 bg-blue-500 text-white rounded-md"
+      >
+        Add
+      </button>
     </form>
   );
 };
