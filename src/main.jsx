@@ -2,23 +2,22 @@ import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
-import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import Category from "./pages/Category";
 import Orders from "./pages/Orders";
 import Branches from "./pages/Branches";
 import Discount from "./pages/Discount";
-import Employes from "./pages/Employes";
 import Messages from "./pages/Messages";
 import Reports from "./pages/Reports";
 import Settings from "./pages/Settings";
 import WareHouse from "./pages/WareHouse";
 import Products from "./pages/Products";
 import App from "./App";
-import OrderDetails from "./pages/OrderDetails";
+  import OrderDetails from "./pages/OrderDetails";
 import ViewDetailsContext, {
   NumberProvider,
 } from "./context/ViewDetailsContext";
+import Employes from "./pages/Employes";
 
 const router = createBrowserRouter([
   {

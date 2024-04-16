@@ -39,7 +39,7 @@ const Orders = () => {
       : users.filter((user) => user.orderStatus === selectedCategory);
 
   return (
-    <div>
+    <div className="w-full">
       {users && users.length > 0 ? (
         <div className="overflow-x-auto w-full">
           <h2 className="text-3xl font-semibold p-6">

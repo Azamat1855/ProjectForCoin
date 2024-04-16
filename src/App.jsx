@@ -11,6 +11,8 @@ import Orders from "./pages/Orders";
 import Category from "./pages/Category";
 import { useContext } from "react";
 import NumberContext from "./context/ViewDetailsContext";
+import Employes from "./pages/Employes";
+
 
 function App() {
   const { number, setNumber } = useContext(NumberContext);
@@ -28,12 +30,12 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/branches" element={<Branches />} />
+          <Route path="/employes" element={<Employes />} />
           <Route path="/warehouse" element={<WareHouse />} />
           <Route path="/orders" element={<Orders />}></Route>
           <Route path="/orders/:id" element={<OrderDetails />} />
           <Route path="*" element={<div>NONE</div>} />
           <Route path="/category" element={<Category />} />
-          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />
