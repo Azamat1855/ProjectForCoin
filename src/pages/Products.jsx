@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-feather';
-import Ingrediyent from './Ingrediyent';
+
 
 const Menu = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -11,22 +10,24 @@ const Menu = () => {
       name: "Pepperoni Pizza",
       category: "Pizza",
       image: "https://againstthegraingourmet.com/cdn/shop/products/Pepperoni_Pizza_Beauty_1000x1000.jpg?v=1658703726",
-      ingredients: ["Pepperoni", "Tomato Sauce", "Cheese", "Dough"],
+      ingredients: ["Pepperoni", "Tomato", "Cheese", "Dough"],
+      price: "2000"
     },
     {
       id: 2,
       name: "Vegetarian Pizza",
       category: "Pizza",
       image: "https://imgmedia.lbb.in/media/2023/02/63e39a8dc9ae884e143db091_1675860621236.jpg",
-      ingredients: ["Bell Peppers", "Mushrooms", "Olives", "Cheese", "Dough"],
+      ingredients: ["Peppers", "Mushrooms", "Olives", "Cheese", "Dough"],
+      price: "2000"
     },
-    // Другие продукты...
     {
       id: 11,
       name: "Coca-cola",
       category: "Beverage",
       image: "https://s0.rbk.ru/v6_top_pics/media/img/4/92/347034914676924.jpeg",
-      ingredients: ["Carbonated Water", "Sugar", "Caramel Color", "Phosphoric Acid", "Natural Flavors", "Caffeine"],
+      ingredients: ["Carbonate", "Sugar", "Caramel", "Phosphoric", "Flavors", "Caffeine"],
+      price: "2000"
     },
   ];
 
@@ -50,12 +51,19 @@ const Menu = () => {
             <img className="w-full h-48 object-cover object-center" src={product.image} alt={product.name} />
             <div className="py-4 px-6">
               <h2 className="text-gray-800 text-xl font-semibold mb-2">{product.name}</h2>
-              <div className="flex justify-between items-center mb-4">
-                <ul className='flex flex-wrap'>
+              <div className="flex flex-col items-start justify-between">
+
+                <p className='mb-2'>Ingredents:</p>
+                <ul className='flex flex-wrap gap-1'>
                   {product.ingredients.map((ingredient, index) => (
-                    <li key={index} className="badge badge-accent">{ingredient}</li>
+                    <li key={index} className="py-1 px-2 bg-slate-900 text-white rounded-2xl flex items-center justify-center gap-3 text-[0.55em] font-mono font-medium flex-1 max-w-[33%] max-h-[30px]">{ingredient}</li>
                   ))}
                 </ul>
+
+                <p>
+                  <span>Price:</span>
+                  <span>{product.price}</span>
+                </p>
               </div>
             </div>
           </div>
