@@ -18,6 +18,7 @@ import Settings from "./pages/Settings";
 import WareHouse from "./pages/WareHouse";
 import Products from "./pages/Products";
 import App from "./App";
+import Vacancy from "./pages/Vacancy";
 
 
 const router = createBrowserRouter([
@@ -68,6 +69,10 @@ const router = createBrowserRouter([
       {
         path: "/warehouse",
         element: <WareHouse />,
+      },
+      {
+        path: "/vacancy",
+        element: <Vacancy />,
       }
     ],
   },
