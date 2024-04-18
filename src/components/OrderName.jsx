@@ -24,7 +24,7 @@ const OrderName = ({ order }) => {
           laudantium, obcaecati temporibus.
         </p>
       </div>
-      <div className="notes-address py-2 px-4 w-full rounded-3xl bg-[#4E60FF] flex text-white items-center gap-5 absolute bottom-0  ">
+      <div className="notes-address py-2 px-4 w-full rounded-2xl bg-[#4E60FF] flex text-white items-center gap-5 absolute bottom-0  ">
         <div className="address-icon bg-[#FFFFFF] rounded-full mask mask-squircle w-[69px] h-[69px] flex items-center justify-center">
           <TbTruckDelivery className="text-[#FF6C4E] text-[40px]"/>
         </div>

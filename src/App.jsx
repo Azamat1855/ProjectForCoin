@@ -12,6 +12,7 @@ import Category from "./pages/Category";
 import { useContext } from "react";
 import NumberContext from "./context/ViewDetailsContext";
 import Employes from "./pages/Employes";
+import ExampleComponent from "./components/ExampleComponent/ExampleComponent";
 
 
 function App() {
@@ -22,12 +23,12 @@ function App() {
     <>
       <header>
         <Navbar />
+        <ExampleComponent />
       </header>
 
       <main className="flex w-full">
         <SideBar />
         <Routes>
-          <Route path="/" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/branches" element={<Branches />} />
           <Route path="/employes" element={<Employes />} />

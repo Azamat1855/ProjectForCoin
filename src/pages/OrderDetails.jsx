@@ -39,7 +39,7 @@ const OrderDetails = ({ match }) => {
     <div className="p-8 ">
       <OrderId order={order} />
       <div className="order-details flex gap-9">
-        <div className="details-left flex justify-center flex-col gap-1">
+        <div className="details-left flex justify-center flex-col gap-8">
           <OrderName order={order} />
           <OrderSteps order={order} />
         </div>
