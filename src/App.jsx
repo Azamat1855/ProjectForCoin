@@ -17,6 +17,7 @@ import Products from './pages/Products';
 import Discount from './pages/Discount';
 import './App.css';
 import ExampleComponent from './components/ExampleComponent/ExampleComponent';
+import Ingrediyent from './pages/Ingrediyent';
 
 const App = () => {
   return (
@@ -26,7 +27,7 @@ const App = () => {
         <ExampleComponent />
       </header>
       <main className='flex w-full'>
-        <SideBar/>
+        <SideBar />
         <Routes>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/branches" element={<Branches />} />
@@ -40,6 +41,7 @@ const App = () => {
           <Route path="/category" element={<Category />} />
           <Route path="/products" element={<Products />} />
           <Route path="/discount" element={<Discount />} />
+          <Route path="/dd/:id" element={<Ingrediyent />} />
         </Routes>
       </main>
     </>
