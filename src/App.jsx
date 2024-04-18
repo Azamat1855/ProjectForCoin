@@ -3,14 +3,9 @@ import React, { useContext } from 'react';
 import Navbar from './components/Navbar';
 import SideBar from './components/SideBar';
 import { Route, Routes } from 'react-router-dom';
-import Dashboard from './pages/Dashboard';
-import Branches from './pages/Branches';
-import Employes from './pages/Employes';
-import WareHouse from './pages/WareHouse';
 import Settings from './pages/Settings';
 import Messages from './pages/Messages';
 import Reports from './pages/Reports';
-import Vacancy from './pages/Vacancy';
 import Orders from './pages/Orders';
 import Category from './pages/Category';
 import Products from './pages/Products';
@@ -20,6 +15,13 @@ import ExampleComponent from './components/ExampleComponent/ExampleComponent';
 import Ingrediyent from './pages/Ingrediyent';
 import NumberContext from './context/ViewDetailsContext';
 import OrderDetails from './pages/OrderDetails';
+import './App.css'
+import Home from './pages/Home'
+import Branches from './pages/Branches'
+import Dashboard from './pages/Dashboard'
+import Employes from './pages/Employes'
+import WareHouse from './pages/WareHouse'
+import Vacancy from './pages/Vacancy'
 
 
 function App() {
@@ -50,6 +52,7 @@ function App() {
           <Route path="/products" element={<Products />} />
           <Route path="/discount" element={<Discount />} />
           <Route path="/dd/:id" element={<Ingrediyent />} />
+          <Route path="/vacancy" element={<Vacancy />} />
         </Routes>
       </main>
     </>

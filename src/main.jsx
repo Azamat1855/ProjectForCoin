@@ -18,6 +18,8 @@ import ViewDetailsContext, {
   NumberProvider,
 } from "./context/ViewDetailsContext";
 import Employes from "./pages/Employes";
+import Vacancy from "./pages/Vacancy";
+
 
 const router = createBrowserRouter([
   {
@@ -69,6 +71,10 @@ const router = createBrowserRouter([
         path: "/warehouse",
         element: <WareHouse />,
       },
+      {
+        path: "/vacancy",
+        element: <Vacancy />,
+      }
     ],
   },
 ]);
