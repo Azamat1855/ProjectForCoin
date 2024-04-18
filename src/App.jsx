@@ -1,18 +1,25 @@
-import "./App.css";
-import Home from "./pages/Home";
-import Navbar from "./components/Navbar";
-import SideBar from "./components/SideBar";
-import Branches from "./pages/Branches";
-import { Route, Routes } from "react-router-dom";
-import Dashboard from "./pages/Dashboard";
-import WareHouse from "./pages/WareHouse";
-import OrderDetails from "./pages/OrderDetails";
-import Orders from "./pages/Orders";
-import Category from "./pages/Category";
-import { useContext } from "react";
-import NumberContext from "./context/ViewDetailsContext";
-import Employes from "./pages/Employes";
-import ExampleComponent from "./components/ExampleComponent/ExampleComponent";
+// src/App.js
+import React, { useContext } from 'react';
+import Navbar from './components/Navbar';
+import SideBar from './components/SideBar';
+import { Route, Routes } from 'react-router-dom';
+import Dashboard from './pages/Dashboard';
+import Branches from './pages/Branches';
+import Employes from './pages/Employes';
+import WareHouse from './pages/WareHouse';
+import Settings from './pages/Settings';
+import Messages from './pages/Messages';
+import Reports from './pages/Reports';
+import Vacancy from './pages/Vacancy';
+import Orders from './pages/Orders';
+import Category from './pages/Category';
+import Products from './pages/Products';
+import Discount from './pages/Discount';
+import './App.css';
+import ExampleComponent from './components/ExampleComponent/ExampleComponent';
+import Ingrediyent from './pages/Ingrediyent';
+import NumberContext from './context/ViewDetailsContext';
+import OrderDetails from './pages/OrderDetails';
 
 
 function App() {
@@ -40,6 +47,9 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/discount" element={<Discount />} />
+          <Route path="/dd/:id" element={<Ingrediyent />} />
         </Routes>
       </main>
     </>
