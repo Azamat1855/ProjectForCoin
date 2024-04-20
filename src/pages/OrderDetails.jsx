@@ -1,37 +1,56 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from "react";
+import NumberContext from "../context/ViewDetailsContext";
+import { OrderId, OrderName, OrderSteps, OrderTable, OrderMap, OrderDelivery } from "../components";
 
 const OrderDetails = ({ match }) => {
   const [order, setOrder] = useState(null);
+  const { number } = useContext(NumberContext);
 
   useEffect(() => {
-    if (match && match.params && match.params.orderId) {
-      const orderId = match.params.orderId;
-      console.log("Order ID:", orderId);
+    const orderId = number;
+    if (orderId) {
       fetch(`http://localhost:3007/orders/${orderId}`)
         .then((response) => {
-          console.log("Response status:", response.status);
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
           return response.json();
         })
         .then((data) => {
           console.log("Fetched order data:", data);
-          setOrder(data);
+          if (data && data.orderId) {
+            setOrder(data);
+          } else {
+            throw new Error("Invalid data received from server");
+          }
         })
         .catch((error) => {
           console.error("Error fetching order details:", error);
+          setOrder(null);
         });
     }
-  }, [match]);
+  }, [number]);
 
   if (!order) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div>
-      <h2>Order Details</h2>
-      <p>Order ID: {order.orderId}</p>
-      <p>Customer: {order.firstName} {order.lastName}</p>
-      <p>Total Price: ${order.totalPrice}</p>
+    <div className="p-8 ">
+      <OrderId order={order} />
+      <div className="order-details flex gap-9">
+        <div className="details-left flex justify-center flex-col gap-8">
+          <OrderName order={order} />
+          <OrderSteps order={order} />
+        </div>
+        <div className="details-rigth">
+          <OrderTable order={order} />
+          <div className="orders-informations py-5 px-8 shadow-md rounded-xl">
+            <OrderMap />
+            <OrderDelivery />
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

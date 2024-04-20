@@ -7,20 +7,20 @@ const SideBar = () => {
     { id: 1, linkname: "Dashboard", href: "/dashboard", img: './Vector.png' },
     { id: 2, linkname: "Branches", href: "/branches", img: './Vector.png' },
     { id: 3, linkname: "Employes", href: "/employes", img: './Vector.png' },
-    {
-      id: 4,
-      linkname: "Messages",
-      dropdown: [
-        { id: 1, linkname: "Inbox", href: "/inbox" },
-        { id: 2, linkname: "Sent", href: "/sent" },
-        {
-          id: 3, linkname: "Daisy", href: "/daisy", dropdown: [
-            { id: 4, linkname: "Submenu 1", href: "/" },
-            { id: 5, linkname: "Submenu 2", href: "/" },
-          ]
-        },
-      ]
-    },
+    // {
+    //   id: 4,
+    //   linkname: "Messages",
+    //   dropdown: [
+    //     { id: 1, linkname: "Inbox", href: "/inbox" },
+    //     { id: 2, linkname: "Sent", href: "/sent" },
+    //     {
+    //       id: 3, linkname: "Daisy", href: "/daisy", dropdown: [
+    //         { id: 4, linkname: "Submenu 1", href: "/" },
+    //         { id: 5, linkname: "Submenu 2", href: "/" },
+    //       ]
+    //     },
+    //   ]
+    // },
     { id: 5, linkname: "Warehouse", href: "/warehouse", img: './Vector.png' },
     { id: 6, linkname: "Orders", href: "/orders", img: './Vector.png' },
     { id: 7, linkname: "Products", href: "/products", img: './Vector.png' },

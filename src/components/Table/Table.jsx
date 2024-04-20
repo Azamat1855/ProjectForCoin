@@ -61,13 +61,13 @@ const Table = ({ columnsTable }) => {
   );
 
   return (
-    <div className="w-[80%] mx-auto pt-[20px] ">
+    <div className="w-full mx-auto pt-[20px] text-center">
       <h1 className="text-5xl font-semibold text-center mb-10">EMPLOYES</h1>
       <div className="flex flex-col items-center justify-center">
         <div className="flex justify-center">
           <input
             type="text"
-            className="w-[500px] h-[50px] px-[10px]  outline-none border rounded-l-lg border-gray-300"
+            className="w-[900px] h-[50px] px-[10px]  outline-none border rounded-l-lg border-gray-300"
             placeholder="Want to find something?"
             value={searchQuery}
             onChange={handleInputChange}
@@ -76,36 +76,33 @@ const Table = ({ columnsTable }) => {
             <FaMagnifyingGlass />
           </div>
           <div className="">
-          <button
-          onClick={handleAddEmployee}
-          className="mb-6 p-3 bg-blue-500 rounded-lg text-white">Add Employee
-          </button>
+            <button
+              onClick={handleAddEmployee}
+              className="mb-6 p-3 bg-blue-500 rounded-lg text-white"
+            >
+              Add Employee
+            </button>
           </div>
         </div>
         <div>
           {showAddForm && <AddEmployeeForm onSubmit={handleAddFormSubmit} />}
-          <div className="overflow-x-auto">
-            <table className="table">
-              <thead className="bg-[#EAEAEA] rounded-sm">
+          <div className="overflow-x-auto rounded">
+            <table className="table bg-gray-100 text-center">
+              <thead className="bg-gray-300 text-black text-[15px] rounded-sm text-center">
                 <tr>
-                  <th></th>
                   <th>Name</th>
                   <th>Address</th>
                   <th>Age</th>
                   <th>Gender</th>
-                  <th>Email</th>
                   <th>Phone</th>
+                  <th>Post</th>
+                  <th>Work</th>
                   <th></th>
                 </tr>
               </thead>
               <tbody className=" overflow-x-auto">
                 {filteredUsers.map((item, index) => (
                   <tr key={index} className="">
-                    <th className=" mb-[10px] rounded-xl">
-                      <label>
-                        <input type="checkbox" className="checkbox" />
-                      </label>
-                    </th>
                     <td>
                       {editingIndex === index ? (
                         <input
@@ -114,7 +111,7 @@ const Table = ({ columnsTable }) => {
                           onChange={(e) => handleChange(e, "firstName")}
                         />
                       ) : (
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center">
                           <div className="avatar"></div>
                           <div>
                             <div className="font-bold">
@@ -138,9 +135,6 @@ const Table = ({ columnsTable }) => {
                         <>
                           {item.address.address}
                           <br />
-                          <span className="badge badge-ghost badge-sm">
-                            {item.company.department}
-                          </span>
                         </>
                       )}
                     </td>
@@ -166,18 +160,10 @@ const Table = ({ columnsTable }) => {
                         <>{item.gender}</>
                       )}
                     </td>
-                    <td>
-                      {editingIndex === index ? (
-                        <input
-                          type="text"
-                          value={editedUser.email}
-                          onChange={(e) => handleChange(e, "email")}
-                        />
-                      ) : (
-                        <>{item.email}</>
-                      )}
-                    </td>
+
                     <td>{item.phone}</td>
+                    <td>{item.company.department}</td>
+                    <td>{item.company.title}</td>
                     <td>
                       {editingIndex === index ? (
                         <button
@@ -187,7 +173,7 @@ const Table = ({ columnsTable }) => {
                           Save
                         </button>
                       ) : (
-                        <div className="flex gap-4">
+                        <div className="flex gap-2">
                           <button onClick={() => handleEdit(index)}>
                             <img
                               src="public/clarity_note-edit-solid.png"
@@ -211,15 +197,15 @@ const Table = ({ columnsTable }) => {
                   </tr>
                 ))}
               </tbody>
-              <tfoot>
-                <tr>
-                  <th></th>
+              <tfoot className="bg-gray-300 rounded-sm">
+                <tr className="text-black text-center text-[15px]">
                   <th>Name</th>
                   <th>Age</th>
                   <th>Address</th>
                   <th>Gender</th>
-                  <th>Email</th>
                   <th>Phone</th>
+                  <th>Post</th>
+                  <th>Work</th>
                   <th></th>
                 </tr>
               </tfoot>
@@ -237,9 +223,10 @@ const AddEmployeeForm = ({ onSubmit }) => {
     lastName: "",
     age: "",
     gender: "",
-    email: "",
     phone: "",
     address: "",
+    post: "",
+    work: "",
     company: "",
   });
 
@@ -254,58 +241,75 @@ const AddEmployeeForm = ({ onSubmit }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mb-5">
-      <input
+    <form onSubmit={handleSubmit} className="py-5 glass bg-slate-700 flex flex-col items-center justify-center">
+     <div className="h-[230px] flex items-center flex-wrap justify-center gap-2">
+     <input
         type="text"
         placeholder="First Name"
         value={newEmployee.firstName}
         onChange={(e) => handleChange(e, "firstName")}
+        className="outline-none input shadow-gray-400 shadow-lg"
       />
       <input
         type="text"
         placeholder="Last Name"
         value={newEmployee.lastName}
         onChange={(e) => handleChange(e, "lastName")}
+        className="outline-none input shadow-gray-500 shadow-lg"
       />
       <input
         type="text"
         placeholder="Age"
         value={newEmployee.age}
         onChange={(e) => handleChange(e, "age")}
+        className="outline-none input shadow-gray-500 shadow-lg"
       />
       <input
         type="text"
         placeholder="Gender"
         value={newEmployee.gender}
         onChange={(e) => handleChange(e, "gender")}
-      />
-      <input
-        type="email"
-        placeholder="Email"
-        value={newEmployee.email}
-        onChange={(e) => handleChange(e, "email")}
+        className="outline-none input shadow-gray-500 shadow-lg"
       />
       <input
         type="text"
         placeholder="Phone"
         value={newEmployee.phone}
         onChange={(e) => handleChange(e, "phone")}
+        className="outline-none input shadow-gray-500 shadow-lg"
       />
       <input
         type="text"
         placeholder="Address"
         value={newEmployee.address}
         onChange={(e) => handleChange(e, "address")}
+        className="outline-none input shadow-gray-400 shadow-lg"
+      />
+      <input
+        type="text"
+        placeholder="Post"
+        value={newEmployee.post}
+        onChange={(e) => handleChange(e, "post")}
+        className="outline-none input shadow-gray-500 shadow-lg"
+      />
+      <input
+        type="text"
+        placeholder="Work"
+        value={newEmployee.work}
+        onChange={(e) => handleChange(e, "work")}
+        className="outline-none input shadow-gray-500 shadow-lg"
       />
       <input
         type="text"
         placeholder="Company"
         value={newEmployee.company}
         onChange={(e) => handleChange(e, "company")}
+        className="outline-none input shadow-gray-500 shadow-lg"
       />
+     </div>
       <button
         type="submit"
-        className="px-4 py-3 bg-blue-500 text-white rounded-md"
+        className="px-[100px] py-3 bg-blue-500 text-white rounded-md"
       >
         Add
       </button>
