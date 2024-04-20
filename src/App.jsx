@@ -17,6 +17,7 @@ import Products from './pages/Products';
 import Discount from './pages/Discount';
 import './App.css';
 import ExampleComponent from './components/ExampleComponent/ExampleComponent';
+import TableID from './components/Table/TableID';
 
 const App = () => {
   return (
@@ -35,6 +36,7 @@ const App = () => {
           <Route path="/settings" element={<Settings />} />
           <Route path="/messages" element={<Messages />} />
           <Route path="/reports" element={<Reports />} />
+          <Route path="/reports/:id" element={<TableID />} />
           <Route path="/vacancy" element={<Vacancy />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/category" element={<Category />} />

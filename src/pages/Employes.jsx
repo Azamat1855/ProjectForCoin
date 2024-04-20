@@ -1,11 +1,10 @@
 import React from 'react'
-import TableReports from '../components/Table/TableReports'
-
+import Table from '../components/Table/Table'
 
 const Employes = () => {
   return (
-    <div className='flex w-full p-10'>
-      <TableReports />
+    <div className='flex w-full'>
+      <Table/>
     </div>
   )
 }
