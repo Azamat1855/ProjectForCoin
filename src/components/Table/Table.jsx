@@ -67,7 +67,7 @@ const Table = ({ columnsTable }) => {
         <div className="flex justify-center">
           <input
             type="text"
-            className="w-[1010px] h-[50px] px-[10px] outline-none border rounded-l-lg border-gray-300 text-center"
+            className="w-[985px] h-[50px] px-[10px] outline-none border rounded-l-lg border-gray-300 text-center"
             placeholder="Want to find something?"
             value={searchQuery}
             onChange={handleInputChange}
@@ -78,7 +78,7 @@ const Table = ({ columnsTable }) => {
           <div className="">
             <button
               onClick={handleAddEmployee}
-              className="mb-6 p-3 bg-blue-500 rounded-lg text-white"
+              className="mb-6 h-[50px] btn px-6 bg-blue-500 rounded-lg text-white"
             >
               Add Employee
             </button>
@@ -102,7 +102,7 @@ const Table = ({ columnsTable }) => {
               </thead>
               <tbody className=" overflow-x-auto">
                 {filteredUsers.map((item, index) => (
-                  <tr key={index} className="">
+                  <tr key={index} className=" border-b-2 border-b-black w-full">
                     <td>
                       {editingIndex === index ? (
                         <input
