@@ -35,7 +35,7 @@ function App() {
         <ExampleComponent />
       </header>
 
-      <main className="flex w-full">
+      <main className="flex w-full h-screen">
         <SideBar />
         <Routes>
           <Route path="/dashboard" element={<Dashboard />} />
@@ -44,15 +44,15 @@ function App() {
           <Route path="/warehouse" element={<WareHouse />} />
           <Route path="/orders" element={<Orders />}></Route>
           <Route path="/orders/:id" element={<OrderDetails />} />
-          <Route path="*" element={<div>NONE</div>} />
           <Route path="/category" element={<Category />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/reports" element={<Reports />} />
+          <Route path="/settings" element={<Settings />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/products" element={<Products />} />
           <Route path="/discount" element={<Discount />} />
           <Route path="/dd/:id" element={<Ingrediyent />} />
           <Route path="/vacancy" element={<Vacancy />} />
+          <Route path="*" element={<div>NONE</div>} />
         </Routes>
       </main>
     </>

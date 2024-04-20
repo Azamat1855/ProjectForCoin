@@ -44,8 +44,8 @@ const Navbar = () => {
         </div>
       </nav>
       {showNotifications && (
-        <div className="absolute top-16 right-4 w-64 bg-white border border-gray-300 rounded shadow">
-          <div className="p-4">
+        <div className="absolute top-16 right-4 w-[500px] bg-white border border-gray-300 rounded shadow">
+          <div className="p-10">
             {notifications.map((notification) => (
               <Notification
                 key={notification.id}

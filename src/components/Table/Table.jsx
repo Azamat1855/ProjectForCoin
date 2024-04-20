@@ -67,7 +67,7 @@ const Table = ({ columnsTable }) => {
         <div className="flex justify-center">
           <input
             type="text"
-            className="w-[900px] h-[50px] px-[10px]  outline-none border rounded-l-lg border-gray-300"
+            className="w-[1010px] h-[50px] px-[10px] outline-none border rounded-l-lg border-gray-300 text-center"
             placeholder="Want to find something?"
             value={searchQuery}
             onChange={handleInputChange}
