@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Categories from "../components/Orders/Categories";
-import Search from "../components/Orders/Search";
+import { OrdersCategories, OrdersSearch } from "../components";
+import NumberContext from "../context/ViewDetailsContext";
 
 const Orders = () => {
-  const [users, setUsers] = useState([]);
+  const { number, setNumber } = useContext(NumberContext);
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     fetch("http://localhost:3007/orders")
@@ -13,6 +14,7 @@ const Orders = () => {
       .then((res) => {
         console.log("users: ", res);
         setUsers(res);
+        setFilteredUsers(res);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -37,18 +39,36 @@ const Orders = () => {
       ? users
       : users.filter((user) => user.orderStatus === selectedCategory);
 
+  const filterByAlphabet = () => {
+    const sortedUsers = [...filteredUsers].sort((a, b) => {
+      return a.firstName.localeCompare(b.firstName);
+    });
+    setFilteredUsers(sortedUsers);
+  };
+
+  const filterByPrice = () => {
+    const sortedUsers = [...filteredUsers].sort((a, b) => {
+      return a.totalPrice - b.totalPrice;
+    });
+    setFilteredUsers(sortedUsers);
+  };
+
   return (
-    <div>
+    <div className="w-full">
       {users && users.length > 0 ? (
         <div className="overflow-x-auto w-full">
           <h2 className="text-3xl font-semibold p-6">
-            Orders <span className="text-xl text-slate-500">{users.length}</span>
+            Orders{" "}
+            <span className="text-xl text-slate-500">{users.length}</span>
           </h2>
-          <Categories setSelectedCategory={setSelectedCategory} />
-          <Search />
-          <table className="table">
+          <OrdersCategories setSelectedCategory={setSelectedCategory} />
+          <OrdersSearch
+            filterByAlphabet={filterByAlphabet}
+            filterByPrice={filterByPrice}
+          />
+          <table className="table overflow-y-auto">
             <thead>
-              <tr className="text-[15px] text-center font-bold text-slate-300">
+              <tr className="text-[15px] font-bold text-slate-300">
                 <th>
                   <label>
                     <input type="checkbox" className="checkbox" />
@@ -56,9 +76,9 @@ const Orders = () => {
                 </th>
                 <th>Order ID</th>
                 <th>Customer</th>
-                <th className="text-center">Total Price</th>
-                <th>Status</th>
-                <th>Purchase Date</th>
+                <th>Total Price</th>
+                <th className="text-center">Status</th>
+                <th className="text-center">Purchase Date</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -70,11 +90,13 @@ const Orders = () => {
                       <input type="checkbox" className="checkbox" />
                     </label>
                   </th>
-                  <td className="text-[17px] font-semibold">#{item.orderId}</td>
+                  <td className="text-[18.5px] font-semibold">
+                    #{item.orderId}
+                  </td>
                   <td>
                     <div className="flex items-center gap-3">
                       <div className="avatar">
-                        <div className="mask mask-squircle w-11 h-11">
+                        <div className="mask mask-squircle w-12 h-12">
                           <img
                             src={item.image}
                             alt="Avatar Tailwind CSS Component"
@@ -85,50 +107,41 @@ const Orders = () => {
                         <div className="font-bold text-slate-400">
                           {item.firstName}
                         </div>
-                        <div className="text-sm opacity-70">
+                        <div className=" text-base opacity-70">
                           {item.lastName}
                         </div>
                       </div>
                     </div>
                   </td>
-                  <td className="text-center text-xl font-semibold">
+                  <td className="text-xl font-semibold">
                     <sup>$</sup>
                     <small>{item.totalPrice}</small>
                   </td>
                   <td>
                     <p
-                      className={`border-2 p-1 font-semibold ${getStatus(
+                      className={`border-2 font-semibold text-center ${getStatus(
                         item.orderStatus
                       )}`}
                     >
                       {item.orderStatus}
                     </p>
                   </td>
-                  <td className="text-center text-black">{item.orderdate}</td>
-                  <td className="text-center">
-                    <Link to={`/orders/order/${item.id}`}>
-                      {" "}
-                      <p className="text-slate-400">View Details</p>
+                  <td className="text-center font-normal text-black">
+                    {item.orderdate}
+                  </td>
+                  <td className="t">
+                    <Link to={`/orders/${item.id}`}>
+                      <p
+                        className="text-slate-400"
+                        onClick={() => setNumber(item.id)}
+                      >
+                        View Details
+                      </p>
                     </Link>
                   </td>
                 </tr>
               ))}
             </tbody>
-            <tfoot>
-              <tr className="text-[15px] text-center font-bold text-slate-300">
-                <th>
-                  <label>
-                    <input type="checkbox" className="checkbox" />
-                  </label>
-                </th>
-                <th>Order ID</th>
-                <th>Customer</th>
-                <th className="text-center">Total Price</th>
-                <th>Status</th>
-                <th>Date</th>
-                <th>Action</th>
-              </tr>
-            </tfoot>
           </table>
         </div>
       ) : (

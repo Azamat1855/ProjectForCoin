@@ -10,7 +10,6 @@ const Settings = () => {
     document.body.classList.toggle('dark-mode', darkMode);
   }, [darkMode]);
 
-  // Function to toggle between dark and light mode
   const toggleDarkMode = () => {
     setDarkMode(prevMode => !prevMode);
   };
