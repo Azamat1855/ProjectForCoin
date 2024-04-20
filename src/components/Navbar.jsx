@@ -23,8 +23,8 @@ const Navbar = () => {
 
   return (
     <div className="w-full">
-      <nav className="container py-4 border-b border-gray-300 w-full">
-        <div className="flex justify-between max-w-[95%] mx-auto">
+      <nav className=" py-4 border-b border-gray-300 w-full">
+        <div className="flex justify-between max-w-[95%] mx-auto container">
           <div className="flex items-center">
             <img src="public/carbon_logo-flickr.png" alt="" />
             <img src="public/Admin Logo.png" alt="" />
